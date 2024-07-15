@@ -1,0 +1,18 @@
+<article>
+    <h1>Passing Show Survey responses</h1>
+    <h2>Passing Show Survey responses</h2>
+    <p class="articleContent">Several API calls (Create User, Update User, etc) allow the passing of Show Survey responses. These should be combined into a single delimited parameter value. The format for this value is:</p>
+    <p class="articleContent"> $[QuestionKey-AnswerKey{TextEntryAnswer}]$</p>
+    <p class="articleContent">QuestionKey and AnswerKey are valid keys for an existing Show Survey associated with a Show for which the user has access. TextEntryAnswer can be any text value to be associated with the specified AnswerKey. Multiple Show Survey response values can be passed at the same time by concatenating multiple delimited field values.</p>
+    <p class="articleContent"><strong>Example:</strong></p>
+    <p class="articleContent"> $[145-2312]$$[146-2319{Blue}]$</p>
+    <p class="articleContent">The keys passed must be valid for a Show Survey associated with a Show the user has access to. Invalid keys will be ignored.</p>
+    <p class="articleContent">An alternate format for Show Survey data may be used when key values are not known. This format is:</p>
+    <p class="articleContent"> $[XExternalID-AnswerDescription{TextEntryAnswer}]$</p>
+    <p class="articleContent">The ExternalID corresponds to the External ID value configured for a Show Survey Question and AnswerDescription corresponds to the description of a valid answer for that question. The X character differentiates this format from the standard format and is required when using the alternate format. Multi-Select responses are not supported in this format.</p>
+    <h2>Multi-Select Responses</h2>
+    <p class="articleContent">When a Show Survey is configured to allow multiple responses, the AnswerKey portion of the delimited value can be a caret (^) delimited list of ShowSurveyAnswerKey values, with a trailing caret.</p>
+    <p class="articleContent">ShowSurveyQuestionKey and ShowSurveyAnswerKey values can be obtained from Notified.</p>
+    <p class="articleContent">Example passing multiple Show Survey responses with a multi-select response including a text value to be associated with an answer:</p>
+    <p class="articleContent">$[145-2312]$$[146-2319^2320^2322{Blue}^]$</p>
+</article>

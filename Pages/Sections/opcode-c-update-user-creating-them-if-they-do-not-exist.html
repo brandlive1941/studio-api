@@ -1,0 +1,393 @@
+<article>
+    <h1>Opcode C: Update a User, Creating them if they do not exist</h1>
+    <h2>OpCode C: Update a User, Creating them if they do not exist</h2>
+    <p class="articleContent">This opcode is used to update or create a user in the VTS system. Both attendees (default) and exhibitor users can be updated or created. If LookupByExternalUserID is specified as one (1), then the user is located based on the ExternalUserID value. Otherwise, the user is located based on EMailAddress. If found, the update process is invoked (OpCode U). If not found, the create process (OpCode I) is invoked.</p>
+    <h2>Calling The API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50500&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;LookupByExternalUserID={0(default)|1}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50500. All other parameters may appear in any sequence.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>API Parameter</th>
+                <th>Type/Size</th>
+                <th>Req.</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>APIUserAuthCode</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API authorization code as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>APIUserCredentials</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API user credentials as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>OpCodeList</td>
+                <td>Varchar 20</td>
+                <td>Y</td>
+                <td>Should include I to invoke this function.</td>
+            </tr>
+            <tr>
+                <td>OutputFormat</td>
+                <td>Char 1</td>
+                <td>N</td>
+                <td>T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</td>
+            </tr>
+            <tr>
+                <td>LookupByExternalUserID</td>
+                <td>Bit (0/1)</td>
+                <td>N</td>
+                <td>Pass one (1) to look up this person by the supplied ExternalUserID (your internal identifier).</td>
+            </tr>
+            <tr>
+                <td>ExternalUserID</td>
+                <td>Varchar 255</td>
+                <td>N</td>
+                <td>Your internal identifier for this person. This value must be unique for each person.</td>
+            </tr>
+            <tr>
+                <td>EMailAddress</td>
+                <td>Varchar 255</td>
+                <td>Y</td>
+                <td>The person’s email address.</td>
+            </tr>
+            <tr>
+                <td>FullName</td>
+                <td>Varchar 80</td>
+                <td>-</td>
+                <td>Optional name of a person. Either the FullName or both the FirstName and LastName parameters should be specified.</td>
+            </tr>
+            <tr>
+                <td>FirstName</td>
+                <td>Varchar 40</td>
+                <td>-</td>
+                <td>See above.</td>
+            </tr>
+            <tr>
+                <td>LastName</td>
+                <td>Varchar 40</td>
+                <td>-</td>
+                <td>See above.</td>
+            </tr>
+            <tr>
+                <td>CompanyName</td>
+                <td>Varchar 80</td>
+                <td>N</td>
+                <td>The company that this person is affiliated with.</td>
+            </tr>
+            <tr>
+                <td>JobTitle</td>
+                <td>Varchar 100</td>
+                <td>N</td>
+                <td>Job title of this person.</td>
+            </tr>
+            <tr>
+                <td>Active</td>
+                <td>Bit (0/1)</td>
+                <td>N</td>
+                <td>Pass one (1) to indicate that this person’s account is active, or zero (0) to deactivate their account.</td>
+            </tr>
+            <tr>
+                <td>UserType</td>
+                <td>Bit (0/1)</td>
+                <td>N</td>
+                <td>Pass zero (0) to indicate that this person is a standard attendee, or one (1) if this person is an exhibitor. If this is set to one (1), a valid ExhibitorKey MUST be passed.</td>
+            </tr>
+            <tr>
+                <td>LoginID</td>
+                <td>Varchar 80</td>
+                <td>N</td>
+                <td>The login id for this person. Defaults to email address.</td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>The password for this person. If not supplied, a system-generated password will be assigned, unless the UBMLCPWD parameter is specified, in which case the password will use the lower-cased email address.</td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td>Varchar 80</td>
+                <td>N</td>
+                <td>The person’s primary phone number.</td>
+            </tr>
+            <tr>
+                <td>Phone2</td>
+                <td>Varchar 80</td>
+                <td>N</td>
+                <td>The person’s secondary phone number.</td>
+            </tr>
+            <tr>
+                <td>Address1</td>
+                <td>Varchar 300</td>
+                <td>N</td>
+                <td>The primary address. The entire address may be passed in Address1 by separating multiple lines with CR/LFs or as separate lines in Address1, Address2, and Address3.</td>
+            </tr>
+            <tr>
+                <td>Address2</td>
+                <td>Varchar 100</td>
+                <td>N</td>
+                <td>See above.</td>
+            </tr>
+            <tr>
+                <td>Address3</td>
+                <td>Varchar 100</td>
+                <td>N</td>
+                <td>See above.</td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td>Varchar 100</td>
+                <td>N</td>
+                <td>The city that the person is in.</td>
+            </tr>
+            <tr>
+                <td>StateProv</td>
+                <td>Varchar 100</td>
+                <td>N</td>
+                <td>The State or Province that the person is in.</td>
+            </tr>
+            <tr>
+                <td>Country</td>
+                <td>Varchar 100</td>
+                <td>N</td>
+                <td>The country that the person is in.</td>
+            </tr>
+            <tr>
+                <td>PostalCode</td>
+                <td>Varchar 30</td>
+                <td>N</td>
+                <td>The person’s postal/zip code.</td>
+            </tr>
+            <tr>
+                <td>AttendeeTypeKey</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>A specific attendee type value to assign to this person. This is only valid if UserType is zero (0).</td>
+            </tr>
+            <tr>
+                <td>ExhibitorKey</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>The exhibitor that this person is a part of/assigned to. This is only valid if UserType is one (1).</td>
+            </tr>
+            <tr>
+                <td>ExhibitorUserTypeKey</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>A specific exhibitor user type value to assign to this person. This is only valid if UserType is one (1).</td>
+            </tr>
+            <tr>
+                <td>UserProfile</td>
+                <td>Varchar 3500</td>
+                <td>N</td>
+                <td>Textual profile or bio for this person to be displayed to others at the show.</td>
+            </tr>
+            <tr>
+                <td>Message</td>
+                <td>Varchar 3500</td>
+                <td>N</td>
+                <td>A message or greeting to display to other users in the show.</td>
+            </tr>
+            <tr>
+                <td>SubHostGroupingList</td>
+                <td>Varchar 1000</td>
+                <td>N</td>
+                <td>List of sub-host grouping descriptions, separated by carets (^) to assign this person to. Example: Eastern Region^Central Region^</td>
+            </tr>
+            <tr>
+                <td>UDFValues</td>
+                <td>Varchar 8000</td>
+                <td>N</td>
+                <td>Additional demographic and profile information. See the section on Passing UDF Values for the description of the format of this field.</td>
+            </tr>
+            <tr>
+                <td>ShowSurveyResponses</td>
+                <td>Varchar 8000</td>
+                <td>N</td>
+                <td>Show Survey Response information. See the section on Passing Show Survey Responses for the description of the format of this field.</td>
+            </tr>
+            <tr>
+                <td>TimeZoneInfoKey</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>Time Zone Key for this user.</td>
+            </tr>
+            <tr>
+                <td>EmoticonImage</td>
+                <td>Varchar 255</td>
+                <td>N</td>
+                <td>URL to the photo/image for this user. The image should be 180x180.</td>
+            </tr>
+            <tr>
+                <td>LocaleID</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>The language/locale id for this user. See the table in the Locale Reference section for valid values. Default is 1033.</td>
+            </tr>
+            <tr>
+                <td>SkypeID</td>
+                <td>Varchar 80</td>
+                <td>N</td>
+                <td>Skype ID for this user.</td>
+            </tr>
+            <tr>
+                <td>AOLIMID</td>
+                <td>Varchar 80</td>
+                <td>N</td>
+                <td>AOL Instant Messenger ID for this user.</td>
+            </tr>
+            <tr>
+                <td>YahooIMID</td>
+                <td>Varchar 80</td>
+                <td>N</td>
+                <td>Yahoo Instant Messenger ID for this user.</td>
+            </tr>
+            <tr>
+                <td>MSNIMID</td>
+                <td>Varchar 80</td>
+                <td>N</td>
+                <td>MSN Instant Messenger ID for this user.</td>
+            </tr>
+            <tr>
+                <td>TwitterID</td>
+                <td>Varchar 15</td>
+                <td>N</td>
+                <td>Twitter ID for this user.</td>
+            </tr>
+            <tr>
+                <td>CredentialBadgeList</td>
+                <td>Varchar 8000</td>
+                <td>N</td>
+                <td>List of credential badges to assign to this user. The list may be the Titles or ExternalIDs of the badges to assign, separated by a caret (^) symbol.</td>
+            </tr>
+            <tr>
+                <td>AutoForwardShowMail</td>
+                <td>Flag (0/1)</td>
+                <td>N</td>
+                <td>An optional flag indicating whether to set the auto-forwarding of show mail to this user. Omit or pass -1 for default.</td>
+            </tr>
+            <tr>
+                <td>UBMLCPWD</td>
+                <td>Flag (0/1)</td>
+                <td>N</td>
+                <td>An optional flag that will use the lower-cased email address as the Password value if the Password field is not supplied.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">This API returns the VTS Show User Key and Pubsuite Recipient Key for cross reference purposes. If the user existed and was updated, the OpCode of U is returned. If the user did not exist and was created, the OpCode of I is returned. Examples below depict a user that did not exist and was created.</p>
+    <h2>Text</h2>
+    <pre><code>
+    ### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0
+    ## OpCode=U Status=0 Message=OK
+    ShowUserKey, RecipientKey
+    123456, 123456
+    </code></pre>
+    <h2>HTTP URL-encoded</h2>
+    <pre><code>
+    APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp;OpCodesInError=0&amp;OpCode=I&amp;Status=0&amp;Message=OK&amp;ShowUserKey=123456&amp;RecipientKey=123456
+    </code></pre>
+    <h2>XML</h2>
+    <pre><code>
+    &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+    &lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError=”0” &gt;
+    &lt;OpCodeResult OpCode="I" Status="0" Message="OK" &gt;
+     &lt;ResultRow&gt;
+      &lt;ShowUserKey&gt;123456&lt;/ShowUserKey&gt;
+      &lt;RecipientKey&gt;123456&lt;/RecipientKey&gt;
+     &lt;/ResultRow&gt;
+    &lt;/OpCodeResult&gt;
+    &lt;/APIResults&gt;
+    </code></pre>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>Error</th>
+                <th>Message</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>12</td>
+                <td>Invalid Or Missing Email Address!</td>
+                <td>Email address is a required field and must contain a value.</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Missing Password!</td>
+                <td>Password is a required field and must contain a value.</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Invalid Attendee Type Specified!</td>
+                <td>If specifying an attendee type to assign this person to (UserType=0), it must be valid.</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>Invalid Exhibitor User Type Specified!</td>
+                <td>If specifying an exhibitor user type to assign this person to (UserType=1), it must be valid.</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>Invalid Exhibitor Specified!</td>
+                <td>When creating an Exhibitor User (UserType=1), a valid ExhibitorKey must be supplied.</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>Login ID / Password already in use!</td>
+                <td>The LoginID and Password combination must be unique.</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td>Email Address already in use!</td>
+                <td>A person with this email address already exists. Email addresses must be unique.</td>
+            </tr>
+            <tr>
+                <td>19</td>
+                <td>Invalid Time Zone Info Key Specified!</td>
+                <td>The Time Zone Info Key was invalid.</td>
+            </tr>
+            <tr>
+                <td>24</td>
+                <td>Invalid Attendee Type Specified!</td>
+                <td>When updating an Attendee User and AttendeeTypeKey is specified, it must be valid.</td>
+            </tr>
+            <tr>
+                <td>25</td>
+                <td>Invalid Exhibitor User Type Specified!</td>
+                <td>When updating an Exhibitor User and ExhibitorUserTypeKey is specified, it must be valid.</td>
+            </tr>
+            <tr>
+                <td>26</td>
+                <td>Invalid Exhibitor Specified!</td>
+                <td>When updating an Exhibitor User and ExhibitorKey is specified, ExhibitorKey must be valid.</td>
+            </tr>
+            <tr>
+                <td>27</td>
+                <td>Login ID/Password already in use!</td>
+                <td>The LoginID and Password combination must be unique.</td>
+            </tr>
+            <tr>
+                <td>28</td>
+                <td>Email Address already in use!</td>
+                <td>A person with this email address already exists. Email addresses must be unique.</td>
+            </tr>
+            <tr>
+                <td>29</td>
+                <td>Invalid Time Zone Info Key Specified!</td>
+                <td>The Time Zone Info Key is invalid.</td>
+            </tr>
+        </tbody>
+    </table>
+</article>

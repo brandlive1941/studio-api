@@ -1,0 +1,454 @@
+<article>
+    <h1>Job Posting Opcode JPA: Retrieve Applicant Information for Job Posting</h1>
+    <h2>Job Posting Opcode JPA: Retrieve Applicant Information for Job Posting</h2>
+    <p class="articleContent">This opcode is used to retrieve applicant information for one or more job postings. Exhibitor, Booth, Category, and Specific Job Posting filters may be specified to limit the results.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50560&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;ShowKey={ShowKey}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50560. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 20</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include JPA to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ShowKey of the Job Postings.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">ExhibitorKey filter for Job Postings.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorName</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Exhibitor Name filter for Job Postings.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Exhibitor ExternalID filter for Job Postings.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">BoothKey filter for Job Postings.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothName</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 128</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Booth Name filter for Job Postings.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Booth ExternalID filter for Job Postings.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCategoryKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">JobCategoryKey filter for the Job Postings.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCategoryDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Job Category Description filter for the Job Postings.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCategoryExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Job Category ExternalID filter for the Job Postings.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobPostingKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The key value of the Job Posting to retrieve applicants.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobTitle</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 100</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The title of the Job Posting to retrieve applicants for.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Job Code of the Job Posting to retrieve applicants.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><h2>Return Outputs</h2>
+    <p class="articleContent"> </p>
+    <p class="articleContent">This API returns a result set of grouping information upon successful completion. The result set is structured as follows:</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Column</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">JobTitle</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobPostingKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">varchar 255</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCategoryDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCategoryKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCategoryExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorName</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ApplicantName</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ApplicantEmail</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AppliedDateTime</p>
+                </td>
+                <td>
+                    <p class="articleContent">Datetime YYYY-MM-DD HH:MI:SS format</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SubmissionComments</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 1000</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ReviewerComments</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2GB</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ReviewerRating</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AcceptanceStatus</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AcceptanceComments</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 500</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">LastUpdatedBy</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">LastReviewedBy</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">LastUpdatedDateTime</p>
+                </td>
+                <td>
+                    <p class="articleContent">Datetime YYYY-MM-DD HH:MI:SS format</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">LastViewedDateTime</p>
+                </td>
+                <td>
+                    <p class="articleContent">Datetime YYYY-MM-DD HH:MI:SS format</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Potential Error Codes</h2>
+    <p class="articleContent">There are no potential error codes for this API call.</p>
+</article>

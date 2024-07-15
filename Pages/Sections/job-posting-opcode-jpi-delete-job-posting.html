@@ -1,0 +1,280 @@
+<article>
+    <h1>Job Posting Opcode JPI: Delete a Job Posting</h1>
+    <h2>Job Posting Opcode JPI: Delete a Job Posting</h2>
+    <p class="articleContent">This opcode is used to delete a Job Posting entry in the specified show. The Job Posting to delete may be identified by JobPostingKey or JobCode or JobTitle.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50560&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;ShowKey={ShowKey}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50560. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 20</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include JPD to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ShowKey of the Job Posting.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">ExhibitorKey for this Job Posting. If this is not supplied, then ExhibitorName or ExhibitorExternalID must be specified if JobPostingKey is not used.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorName</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Exhibitor Name for the Job Posting.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Exhibitor ExternalID for the Job Posting.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">BoothKey of the Job Posting.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothName</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 128</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Booth Name of the Job Posting.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Booth ExternalID of the Job Posting.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobPostingKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The key value of the Job Posting to delete. If not supplied, JobCode or JobTitle and Exhibitor info must be supplied.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobTitle</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 100</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The title of this Job Posting.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Job Code, if any.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">This API returns the status message OK and the JobPostingKey upon successful completion.</p>
+    <p class="articleContent"> </p>
+    <h2>Text</h2>
+    <pre><code>
+    ### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0
+    ## OpCode=JPD Status=0 Message=OK
+    JobPostingKey
+    123456
+    </code></pre>
+    <h2>HTTP URL-encoded</h2>
+    <pre><code>
+    APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp; OpCodesInError=0&amp;OpCode=JPD&amp;Status=0&amp;Message=OK&amp;JobPostingKey=123456
+    </code></pre>
+    <h2>XML</h2>
+    <pre><code>
+    &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+    &lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError=”0” &gt;
+    &lt;OpCodeResult OpCode="JPD" Status="0" Message="OK" &gt;
+     &lt;ResultRow&gt;
+      &lt;JobPostingKey&gt;123456&lt;/JobPostingKey&gt;
+     &lt;/ResultRow&gt;
+    &lt;/OpCodeResult&gt;
+    &lt;/APIResults&gt;
+    </code></pre>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Error</p>
+                </th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">31</p>
+                </td>
+                <td>
+                    <p class="articleContent">Job Posting Not Found!</p>
+                </td>
+                <td>
+                    <p class="articleContent">Either the JobPostingKey was invalid or not supplied. If not supplied, the Job Posting could not be found based on Exhibitor information and JobCode or JobTitle.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

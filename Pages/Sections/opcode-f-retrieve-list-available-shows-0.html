@@ -1,0 +1,123 @@
+<article>
+    <h1>OpCode F: Retrieve a list of available Shows</h1>
+    <h2>OpCode F: Retrieve a list of available Shows</h2>
+    <p class="articleContent">This opcode is used to retrieve a list of shows defined for this tenant.</p>
+    <h2>Calling The API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50500&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;LookupByExternalUserID={0(default)|1}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50500. All other parameters may appear in any sequence.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>API Parameter</th>
+                <th>Type/Size</th>
+                <th>Req.</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>APIUserAuthCode</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API authorization code as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>APIUserCredentials</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API user credentials as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>OpCodeList</td>
+                <td>Varchar 20</td>
+                <td>Y</td>
+                <td>Should include I to invoke this function.</td>
+            </tr>
+            <tr>
+                <td>OutputFormat</td>
+                <td>Char 1</td>
+                <td>N</td>
+                <td>T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</td>
+            </tr>
+            <tr>
+                <td>LocaleID</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>The language/locale ID for the return data. See the table in the Locale Reference section for valid values. Default is 1033.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">This API returns a result set of profile information upon successful completion. The result set is structured:</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>Column</th>
+                <th>Type/Size</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ShowKey</td>
+                <td>Integer</td>
+            </tr>
+            <tr>
+                <td>Title</td>
+                <td>Varchar 128</td>
+            </tr>
+            <tr>
+                <td>RegistrationRequired</td>
+                <td>Integer (0/1)</td>
+            </tr>
+            <tr>
+                <td>DefaultTimeZoneInfoKey</td>
+                <td>Integer</td>
+            </tr>
+            <tr>
+                <td>UseImageVerification</td>
+                <td>Integer (0/1)</td>
+            </tr>
+            <tr>
+                <td>SubmitToSearchEngines</td>
+                <td>Integer (0/1)</td>
+            </tr>
+            <tr>
+                <td>ShowTypeDesc</td>
+                <td>Varchar 80</td>
+            </tr>
+            <tr>
+                <td>ShowType</td>
+                <td>
+                    <p class="articleContent">Integer (0/1/2/3)</p>
+                    Where 1=VX, 2=Prime, 3=BTV, 0=PB/other
+                </td>
+            </tr>
+            <tr>
+                <td>Active</td>
+                <td>Integer (0/1)</td>
+            </tr>
+            <tr>
+                <td>Archived</td>
+                <td>Integer (0/1)</td>
+            </tr>
+            <tr>
+                <td>IsTemplateShow</td>
+                <td>Integer (0/1)</td>
+            </tr>
+            <tr>
+                <td>ExternalID</td>
+                <td>Varchar 255</td>
+            </tr>
+            <tr>
+                <td>ShowOpenDate</td>
+                <td>Varchar 30 in ODBC format (YYYY-MM-DD HH:MM:SS)</td>
+            </tr>
+            <tr>
+                <td>ShowCloseDate</td>
+                <td>Varchar 30 in ODBC format (YYYY-MM-DD HH:MM:SS)</td>
+            </tr>
+        </tbody>
+    </table>
+</article>

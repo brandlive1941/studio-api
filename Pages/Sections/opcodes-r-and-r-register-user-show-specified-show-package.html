@@ -1,0 +1,159 @@
+<article>
+    <h1>OpCodes R and r: Register a User for a show with specified Show Package</h1>
+    <h2>OpCodes R and r: Register a User for a show with specified Show Package</h2>
+    <p class="articleContent">This opcode is used to register a user for a show in the VTS system. Both attendees (default) and exhibitor users can be registered. The user must already exist. If LookupByExternalUserID is specified as one (1), then the user is located based on the ExternalUserID value. Otherwise, the user is located based on EMailAddress. Several conditions would prevent a successful registration, such as registration being full, registration closed, or the user is already registered for the show. If the opcode r (lowercase) is specified, any existing registration data is updated/reversed as necessary. Affiliate/Tracking data may be passed via the AffiliateKey and AffiliateData parameters. If AffiliateData is specified and AffiliateKey omitted, the system will look up the default Affiliate and track this registration against that one. If a default is not found, one will automatically be created. Note that Affiliate information is only tracked for new registrations. Registration updates will not record Affiliate information.</p>
+    <h2>Calling The API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50500&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;LookupByExternalUserID={0(default)|1}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50500. All other parameters may appear in any sequence.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>API Parameter</th>
+                <th>Type/Size</th>
+                <th>Req.</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>APIUserAuthCode</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API authorization code as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>APIUserCredentials</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API user credentials as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>OpCodeList</td>
+                <td>Varchar 20</td>
+                <td>Y</td>
+                <td>Should include I to invoke this function.</td>
+            </tr>
+            <tr>
+                <td>OutputFormat</td>
+                <td>Char 1</td>
+                <td>N</td>
+                <td>T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</td>
+            </tr>
+            <tr>
+                <td>LookupByExternalUserID</td>
+                <td>Bit (0/1)</td>
+                <td>N</td>
+                <td>Pass one (1) to look up this person by the supplied ExternalUserID (your internal identifier).</td>
+            </tr>
+            <tr>
+                <td>ExternalUserID</td>
+                <td>Varchar 255</td>
+                <td>N</td>
+                <td>Your internal identifier for this person. This value must be unique for each person.</td>
+            </tr>
+            <tr>
+                <td>EMailAddress</td>
+                <td>Varchar 255</td>
+                <td>Y</td>
+                <td>The person’s email address.</td>
+            </tr>
+            <tr>
+                <td>ShowKey</td>
+                <td>Integer</td>
+                <td>-</td>
+                <td>Additional demographic and profile information. See the section on Passing UDF Values for the description of the format of this field.</td>
+            </tr>
+            <tr>
+                <td>ShowPackageKey</td>
+                <td>Integer</td>
+                <td>Y</td>
+                <td>The show package identifier that the person should be registered with.</td>
+            </tr>
+            <tr>
+                <td>AddOnsList</td>
+                <td>Varchar 1000</td>
+                <td>N</td>
+                <td>An optional comma-separated list of add-on item identifiers to include with the show package.</td>
+            </tr>
+            <tr>
+                <td>TriggerRegistrationEvents</td>
+                <td>Bit (0/1)</td>
+                <td>N</td>
+                <td>If set to one (1), then the system will process registration events such as sending email confirmations. Defaults to zero (0).</td>
+            </tr>
+            <tr>
+                <td>AffiliateKey</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>The key value of the Affiliate to track this registration against.</td>
+            </tr>
+            <tr>
+                <td>AffiliateData</td>
+                <td>Varchar 255</td>
+                <td>N</td>
+                <td>Marketing code to track this registration against.</td>
+            </tr>
+            <tr>
+                <td>MatchmakingOptIn</td>
+                <td>Bit (0/1)</td>
+                <td>N</td>
+                <td>Indicates the user has consented to be included in Matchmaking AI/ML services, which may be 3rd party.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">This API returns the status message OK upon successful completion, as well as a unique user identifier for this registration for this event.</p>
+    <h2>Text</h2>
+    <p class="articleContent">### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0</p>
+    <p class="articleContent">## OpCode=R Status=0 Message=OK</p>
+    <p class="articleContent">Result</p>
+    <p class="articleContent">OK, BB0DAED6-3528-436A-ACE2-00026A7875D4</p>
+    <h2>HTTP URL-encoded</h2>
+    <p class="articleContent">APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp;OpCodesInError=0&amp;OpCode=R&amp;Status=0&amp;Message=OK&amp;Result=OK</p>
+    <p class="articleContent"> </p>
+    <h2>XML</h2>
+    <p class="articleContent">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</p>
+    <p class="articleContent">&lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError=”0” &gt;</p>
+    <p class="articleContent">&lt;OpCodeResult OpCode="R" Status="0" Message="OK" &gt;</p>
+    <p class="articleContent"> &lt;ResultRow&gt;</p>
+    <p class="articleContent">  &lt;Result&gt;OK&lt;/Result&gt;</p>
+    <p class="articleContent">  &lt;UUID&gt;BB0DAED6-3528-436A-ACE2-00026A7875D4&lt;/UUID&gt;</p>
+    <p class="articleContent"> &lt;/ResultRow&gt;</p>
+    <p class="articleContent">&lt;/OpCodeResult&gt;</p>
+    <p class="articleContent">&lt;/APIResults&gt;</p>
+    <p class="articleContent"> </p>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>Error</th>
+                <th>Message</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>41</td>
+                <td>User Not Found!</td>
+                <td>The user with either the specified ExternalUserID or EMailAddress could not be found.</td>
+            </tr>
+            <tr>
+                <td>42</td>
+                <td>Show Registration Is Closed!</td>
+                <td>The current date is outside the show dates available for registration.</td>
+            </tr>
+            <tr>
+                <td>43</td>
+                <td>Show Registration Is Full!</td>
+                <td>The registrant limit for this show has been reached.</td>
+            </tr>
+            <tr>
+                <td>44</td>
+                <td>User is already registered for this show!</td>
+                <td>The user has already been registered.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+</article>

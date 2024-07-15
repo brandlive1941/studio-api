@@ -1,0 +1,323 @@
+<article>
+    <h1>Exhibitor OpCode EI: Add New Exhibitor</h1>
+    <h2>Exhibitor OpCode EI: Add New Exhibitor</h2>
+    <p class="articleContent">This opcode is used to add a new Exhibitor to the tenant area. Exhibitors span multiple shows within a tenant. Exhibitor names must be unique across the tenant.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation (except for file uploading which requires a multi-part form post). Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50550&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50550. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent"><strong>API Parameter</strong></p>
+                </th>
+                <th>
+                    <p class="articleContent"><strong>Type/Size</strong></p>
+                </th>
+                <th>
+                    <p class="articleContent"><strong>Req.</strong></p>
+                </th>
+                <th>
+                    <p class="articleContent"><strong>Comment</strong></p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include EI to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">External ID or code to cross-reference this exhibitor entry.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorName</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Name for this exhibitor.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Address</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2000</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Address for this exhibitor.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorTypeKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Type Key indicating the type of exhibitor this is. (See opcode ET)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorStatusKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Status Key indicating the status of this exhibitor. (See opcode ES)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BillingContact</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Contact person at this exhibitor company.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BillingContactEMailAddress</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Email address for the contact person at this exhibitor company.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BillingContactPhone</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The phone number for the contact person at this exhibitor company.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">WebSiteURL</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Website URL, starting with http:// or https://.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorUDFList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2GB</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">User-defined field data for this exhibitor. (See Passing UDF Values reference in the External User API documentation for format details)</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">This API returns the status message OK and the new ExhibitorKey upon successful completion.</p>
+    <p class="articleContent"> </p>
+    <h2>Text</h2>
+    <pre><code>
+    <p class="articleContent">### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0</p>
+    <p class="articleContent">## OpCode=EI Status=0 Message=OK</p>
+    <p class="articleContent">ExhibitorKey</p>
+    <p class="articleContent">123456</p>
+    </code></pre>
+    <h2>HTTP URL-encoded</h2>
+    <pre><code>
+    <p class="articleContent">APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp; OpCodesInError=0&amp;OpCode=EI&amp;Status=0&amp;Message=OK&amp;ExhibitorKey=123456</p>
+    </code></pre>
+    <h2>XML</h2>
+    <pre><code>
+    &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+    &lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError=”0” &gt;
+    &lt;OpCodeResult OpCode="EI" Status="0" Message="OK" &gt;
+     &lt;ResultRow&gt;
+      &lt;ExhibitorKey&gt;123456&lt;/ExhibitorKey&gt;
+     &lt;/ResultRow&gt;
+    &lt;/OpCodeResult&gt;
+    &lt;/APIResults&gt;
+    </code></pre>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Error</p>
+                </th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">101</p>
+                </td>
+                <td>
+                    <p class="articleContent">An Exhibitor With This External ID Already Exists!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The value passed for ExhibitorExternalID already exists associated with another exhibitor. This value must be blank or unique.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">102</p>
+                </td>
+                <td>
+                    <p class="articleContent">An Exhibitor With This Name Already Exists!</p>
+                </td>
+                <td>
+                    <p class="articleContent">An Exhibitor with this name already exists. Exhibitor names must be unique.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">103</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Or Missing Name!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The name parameter was empty or omitted.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">104</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Or Missing Exhibitor Type!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ExhibitorTypeKey parameter value that was specified is invalid.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">105</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Or Missing Exhibitor Status!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ExhibitorStatusKey parameter value that was specified is invalid.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

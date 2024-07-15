@@ -1,0 +1,289 @@
+<article>
+    <h1>Event Attachment OpCode EAL: List Attachments for an Event</h1>
+    <h2>Event Attachment OpCode EAL: List Attachments for an Event </h2>
+    <p class="articleContent">This opcode is used to retrieve a list of attachments (documents/links) for the specified event. The event to retrieve the list of attachments for may be identified by specifying the EventKey, EventDescription, or EventCode.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation (except for file uploading which requires a multi-part form post). Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the API call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50540&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;ShowKey={ShowKey}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50540. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include EAL to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ShowKey that the event belongs to.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The event key to retrieve the attachments list for.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The event code to retrieve the attachments list for.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 355</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The description of the event to retrieve the attachments list for.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><h2>Return Outputs</h2>
+    <p class="articleContent"> </p>
+    <p class="articleContent">This API returns a result set of event attachment information upon successful completion. The result set is structured as follows:</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Column</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">ItemTitle</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 800</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ItemDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 800</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Attachment</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2000</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DatePosted</p>
+                </td>
+                <td>
+                    <p class="articleContent">Datetime</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AttachmentKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AttachmentSize</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CategoryDesc</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Category</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SubjectCategory</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SubjectCategoryKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DisplayOrder</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">FormattedSize</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 20</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DisplayIcon</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Error</p>
+                </th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Event Not Found!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The function could not find a matching event entry based on the values supplied in EventKey, EventCode, and EventDescription.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

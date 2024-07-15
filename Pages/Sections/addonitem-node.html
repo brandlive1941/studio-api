@@ -1,0 +1,206 @@
+<article>
+    <h1>AddOnItem Node</h1>
+    <h2>AddOnItem Node</h2>
+    <p class="articleContent">This node contains show registration package add-on definitions. These nodes are contained within an AddOnItems container node within a ShowPackage node.</p>
+    <p class="articleContent"><strong>Example:</strong></p>
+    <p class="articleContent">&lt;AddOnItem ShowPackageAddOnItemKey="792" Description="Keynote Presentation" DisplayOrder="0" DetailItemType="2" DetailItemKey="39395" ForAfterShowAccess="0" FromDate="2010-01-01 08:00:00" ToDate="2010-02-20 17:00:00" /&gt;</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call :https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50565&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;ShowKey={ShowKey}&amp;InfoTypeFilter={filter code list, in |OPTION|OPTION| format…}</p>
+    <p class="articleContent"><strong>Note:</strong> The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50565. All other parameters may appear in any sequence order.</p>
+    <p class="articleContent"> </p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Attribute</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowPackageAddOnItemKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Notified show package add-on key for this package add-on.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Description</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">The description of the add-on item.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DisplayOrder</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The defined order in which this should display.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DetailItemType</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The value indicates what type of item this applies to. Values are 0 – ShowPackage, 1 – Event Track, 2 – Event, 3 – Booth.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DetailItemKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Notified key value for the item is indicated by DetailItemType.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ForAfterShowAccess</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether this add-on item applies to the after-show access period.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">FromDate</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date</p>
+                </td>
+                <td>
+                    <p class="articleContent">Effective starting availability date and time for this package add-on.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ToDate</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date</p>
+                </td>
+                <td>
+                    <p class="articleContent">Effective ending availability date and time for this package add-on.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowPackageAddOnItemKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Notified show package add-on key for this package add-on.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Description</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">The description of the add-on item.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DisplayOrder</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The defined order in which this should display.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DetailItemType</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The value indicates what type of item this applies to. Values are 0 – ShowPackage, 1 – Event Track, 2 – Event, 3 – Booth.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DetailItemKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Notified key value for the item is indicated by DetailItemType.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ForAfterShowAccess</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether this add-on item applies to the after-show access period.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">FromDate</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date</p>
+                </td>
+                <td>
+                    <p class="articleContent">Effective starting availability date and time for this package add-on.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ToDate</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date</p>
+                </td>
+                <td>
+                    <p class="articleContent">Effective ending availability date and time for this package add-on.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

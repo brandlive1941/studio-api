@@ -1,0 +1,118 @@
+<article>
+    <h1>OpCode O: Remove Badges from the specified User</h1>
+    <h2>OpCode O: Remove Badges from the specified User</h2>
+    <p class="articleContent">This opcode is used to remove credential badges from the specified user. The user must already exist. If LookupByExternalUserID is specified as one (1), then the user is located based on the ExternalUserID value. Otherwise, the user is located based on EMailAddress. The badges to remove from the user are specified by either the Badge External ID or the Badge Title. Multiple badges may be specified in a caret-delimited list (^).</p>
+    <p class="articleContent"><strong>Example: </strong>CredentialBadgeList=VIP^SPEAKER^PRESS</p>
+    <h2>Calling The API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50500&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;LookupByExternalUserID={0(default)|1}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50500. All other parameters may appear in any sequence.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>API Parameter</th>
+                <th>Type/Size</th>
+                <th>Req.</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>APIUserAuthCode</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API authorization code as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>APIUserCredentials</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API user credentials as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>OpCodeList</td>
+                <td>Varchar 20</td>
+                <td>Y</td>
+                <td>Should include I to invoke this function.</td>
+            </tr>
+            <tr>
+                <td>OutputFormat</td>
+                <td>Char 1</td>
+                <td>N</td>
+                <td>T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</td>
+            </tr>
+            <tr>
+                <td>LookupByExternalUserID</td>
+                <td>Bit (0/1)</td>
+                <td>N</td>
+                <td>Pass one (1) to look up this person by the supplied ExternalUserID (your internal identifier).</td>
+            </tr>
+            <tr>
+                <td>ExternalUserID</td>
+                <td>Varchar 255</td>
+                <td>-</td>
+                <td>Your internal identifier for this person. This value must be unique for each person.</td>
+            </tr>
+            <tr>
+                <td>EMailAddress</td>
+                <td>Varchar 255</td>
+                <td>-</td>
+                <td>The person’s email address.</td>
+            </tr>
+            <tr>
+                <td>ShowKey</td>
+                <td>Integer</td>
+                <td>Y</td>
+                <td>The show identifier to remove badges from.</td>
+            </tr>
+            <tr>
+                <td>CredentialBadgeList</td>
+                <td>Varchar 8000</td>
+                <td>Y</td>
+                <td>List of credential badges to remove from this user. The list may be the Titles or ExternalIDs of the badges to assign, separated by a caret (^) symbol.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">This API returns the status message OK upon successful completion, as well as the BadgesDeleted count of the number removed from this user</p>
+    <h2>Text</h2>
+    <pre><code>
+    ### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0
+    ## OpCode=O Status=0 Message=OK
+    BadgesRemoved
+    3
+    </code></pre>
+    <h2>HTTP URL-encoded</h2>
+    <pre><code>
+    <p class="articleContent">APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp;OpCodesInError=0&amp;OpCode=O&amp;Status=0&amp;Message=OK&amp;BadgesRemoved=3</p>
+    </code></pre>
+    <h2>XML</h2>
+    <pre><code>
+    &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+    &lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError=”0” &gt;
+    &lt;OpCodeResult OpCode="O" Status="0" Message="OK" &gt;
+     &lt;ResultRow&gt;
+      &lt;BadgesRemoved&gt;3&lt;/BadgesRemoved&gt;
+     &lt;/ResultRow&gt;
+    &lt;/OpCodeResult&gt;
+    &lt;/APIResults&gt;
+    </code></pre>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>Error</th>
+                <th>Message</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>71</td>
+                <td>User Not Found!</td>
+                <td>The user with either the specified ExternalUserID or EMailAddress could not be found.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+</article>

@@ -1,0 +1,344 @@
+<article>
+    <h1>PRIME Webcast Show Creation OpCode C: Create or Copy a new PRIME Webcast</h1>
+    <h2>PRIME Webcast Show Creation OpCode C: Create or Copy a new PRIME Webcast</h2>
+    <p class="articleContent">This opcode is used to create either a new, empty PRIME Webcast or copy an existing PRIME Webcast. It can also be used to create a new PRIME Webcast based on a template.</p>
+    <p class="articleContent"><strong>Note:</strong> The Webcast Start Date/Time, if supplied, must be specified in the following 24-hour format: YYYY-MM-DD HH:MI:SS</p>
+    <p class="articleContent"><strong>Example:</strong> 2009-12-31 14:30:00</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50564&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList=C&amp;OutputFormat={X|H|T(default)}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50564. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Must include C to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CreateMode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The mode in which to create the webcast, where:</p>
+                    <p class="articleContent">0 – Create new, blank</p>
+                    <p class="articleContent">1 – Create a new webcast by copying an existing webcast</p>
+                    <p class="articleContent">2 – Create a new webcast based on a template</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SystemUserKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The owner key to create this webcast on behalf of.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">FromShowKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">If CreateMode is zero (0), then this can be omitted or passed as zero.</p>
+                    <p class="articleContent">If CreateMode is one (1), then this is the ShowKey to copy from.</p>
+                    <p class="articleContent">If CreateMode is two (2), then this is the Template ShowKey to inherit from.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Title</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 128</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The title of the new webcast. Note that in the case of duplicate entries, this title will be decorated [“Webcast (1)”].</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Optional External ID or identifier for reporting and tie-back purposes.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">WebcastStartDateTime</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 30</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Beginning date/time of the webcast. Must be in YYYY-MM-DD HH:MI:SS format.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+
+
+    <p class="articleContent"><a></a><a></a><a></a></p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">This API returns the status message OK and the following values upon successful completion.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Column</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AttendeeShowPackageKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowTitle</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 128</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Text</h2>
+    <pre><code>
+    ### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0
+    ## OpCode=C Status=0 Message=OK
+    ShowKey,EventKey,AttendeeShowPackageKey,ShowTitle,ExternalID
+    123456,93939,46332,My New Webcast,993TX83
+    </code></pre>
+    <h2>HTTP URL-encoded</h2>
+    <pre><code>
+    APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp; OpCodesInError=0&amp;OpCode=C&amp;Status=0&amp;Message=OK&amp; ShowKey=123456&amp;EventKey=93939&amp;AttendeeShowPackageKey=46332&amp;ShowTitle=My New Webcast&amp;ExternalID=993TX83
+    </code></pre>
+    <h2>XML</h2>
+    <pre><code>
+    &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+    &lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError=”0” &gt;
+    &lt;OpCodeResult OpCode="C" Status="0" Message="OK" &gt;
+     &lt;ResultRow&gt;
+      &lt;ShowKey&gt;123456&lt;/ShowKey&gt;
+      &lt;EventKey&gt;93939&lt;/EventKey&gt;
+      &lt;AttendeeShowPackageKey&gt;46332&lt;/AttendeeShowPackageKey&gt;
+      &lt;ShowTitle&gt;My New Webcast&lt;/ShowTitle&gt;
+      &lt;ExternalID&gt;993TX83&lt;/ExternalID&gt;
+     &lt;/ResultRow&gt;
+    &lt;/OpCodeResult&gt;
+    &lt;/APIResults&gt;
+    </code></pre>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Error</p>
+                </th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">10</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid User Key Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The value passed for SystemUserKey is blank or the person is not valid in the tenant identified by the API Credentials.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">11</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Title Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Title may not be blank and must be specified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">12</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Create Mode Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The CreateMode parameter was missing or invalid.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">13</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Copy From Show Key Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The CreateMode was passed as one (1), but the FromShowKey is either invalid or not valid in the tenant identified by the API Credentials.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">10</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid User Key Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The value passed for SystemUserKey is blank or the person is not valid in the tenant identified by the API Credentials.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div><!-- /.boxton -->
+    </div>
+</article>

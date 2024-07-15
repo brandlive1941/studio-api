@@ -1,0 +1,117 @@
+<article>
+    <h1>Event Survey Response Node</h1>
+    <h2>Event Survey Response Node</h2>
+    <p class="articleContent">This node contains information about event/presentation survey responses.</p>
+    <p class="articleContent"><strong>Example:</strong></p>
+    <p class="articleContent">&lt;EventSurveyResponse EventKey="1234" Name="Featured Presentation" ExternalID="FP01" ResponseDate="2006-09-06 15:50:10" Question="Do you like this presentation?" Answer="Yes" EventSurveyAnswerKey="98554" /&gt;</p>
+    <h2>Calling The API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50566&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;ShowKey={ShowKey}&amp;FromDateTime={FromDate in YYYY-MM-DD HH:MM:SS format}&amp;ToDateTime={ToDate in YYYY-MM-DD HH:MM:SS format}&amp;ActivityTypeFilter={filter code list, in |OPTION|OPTION| format…}&amp;FilterUserType={0|1|-1 where 0 = attendees, 1 = exhibitors, -1 = both}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50566. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Attribute</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">EventKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Notified event key of the event that the entry relates to.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Name</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">The title of the event that the entry relates to.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">External ID/Event Code for the event that the entry relates to.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ResponseDate</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date and time the action occurred.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Question</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">The question that was asked.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Answer</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">The answer that was selected.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Comment</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Additional comment entry, if any.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventSurveyAnswerKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Notified Answer Key of the selected answer.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

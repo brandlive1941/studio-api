@@ -1,0 +1,575 @@
+<article>
+    <h1>Event Moderators OpCode EML: List Moderator/Staffer for an Event</h1>
+    <h2>Event Moderators OpCode EML: List Moderator/Staffer for an Event</h2>
+    <p class="articleContent">This opcode is used to list the moderators and staffers for an existing event in the specified show. The Event to list staffers for may be identified by specifying the EventKey, EventCode, or EventDescription.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation (except for file uploading which requires a multi-part form post). Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the API call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50540&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;ShowKey={ShowKey}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50540. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 20</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include EML to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ShowKey that the Event belongs to.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The event key to list staffers for.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The event code to list staffers for.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 355</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The description of the event to list staffers for.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">
+        <br />
+        This API returns a result set of moderator and staffer information upon successful completion. The result set is structured as follows:
+    </p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Column</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">EventStaffKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowUserKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EMailAddress</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowUserName</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CompanyName</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EmoticonImage</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventModerator</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UserType</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                    <p class="articleContent">0 = Attendee, 1 = Exhibitor</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ModeratorRights</p>
+                </td>
+                <td>
+                    <p class="articleContent">64-bit Integer (bitmap)</p>
+                    <table border="1" cellpadding="1" cellspacing="1">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <p class="articleContent">Bit</p>
+                                </th>
+                                <th>
+                                    <p class="articleContent">Meaning</p>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">1</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Is Moderator</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">2</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Setup View</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">4</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Setup Edit</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">8</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Content Add/Edit/Delete (slides, polls, handouts, etc.)</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">16</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Staff Add/Edit/Delete</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">32</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Source Add/Edit/Delete</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">64</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Start/Stop buttons</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">128</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Previous/Next buttons</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">256</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Tools</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">512</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Broadcast Message</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">1024</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Activity Summary/Reports</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">2048</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Viewer List/Search</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">4096</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Reset Activity</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">8192</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Report Access</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">16384</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">SBTV Speaker</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">32768</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Panel Commands</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">65536</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Email On Demand Questions</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">131072</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Notifications</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">262144</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Webcast Recorder</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">524288</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Source List Controls</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">1048576</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Auto-ask for webcam/mic</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">2097152</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Combined sources</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">4194304</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Producer Tool</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">8388608</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Q&amp;A</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">16777216</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Profile Edit/Access</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="articleContent">33554432</p>
+                                </td>
+                                <td>
+                                    <p class="articleContent">Low Latency View (WebRTC)</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table><p class="articleContent"> </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">PhotoURL</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 256</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DisplayOrder</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SpeakerID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar(80)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventStaffKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowUserKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EMailAddress</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowUserName</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CompanyName</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EmoticonImage</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventModerator</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UserType</p>
+                </td>
+                <td>
+                    <p class="articleContent">
+                        Integer<br />
+                        0 = Attendee, 1 = Exhibitor
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Error</p>
+                </th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">41</p>
+                </td>
+                <td>
+                    <p class="articleContent">Event Not Found!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The function could not find a matching event entry based on the values supplied in EventKey, EventCode, and EventDescription.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

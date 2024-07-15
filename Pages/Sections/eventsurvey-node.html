@@ -1,0 +1,203 @@
+<article>
+    <h1>EventSurvey Node</h1>
+    <h2>EventSurvey Node</h2>
+    <p class="articleContent">This node contains event/presentation survey definitions. These nodes are contained within an EventSurveys container node. Event Surveys also contain child nodes for EventSurveyQuestions, with the EventSurveyQuestions node containing child nodes for EventSurveyAnswers.</p>
+    <p class="articleContent"><strong>Example:</strong></p>
+    <pre><code>
+    &lt;EventSurvey EventKey="2351" EventDescription="Surfing Tips" ExternalID="E1G1" EventSurveyKey="6994" EventSurveyTitle="Presentation Feedback" Active="1" DisplayOrder="10" ShowSurveyResults="1" DateAdded="2007-01-05 14:12:45" &gt;
+     &lt;EventSurveyQuestions&gt;
+     &lt;EventSurveyQuestion EventSurveyQuestionKey="17686" DisplayOrder="10" QuestionText="Do you like to surf?" Active="1" AllowCommentEntry="1" DateAdded="2007-01-05 14:12:45" QuestionLayout="0" AnswerFormat="0" &gt;
+      &lt;EventSurveyAnswers&gt;
+       &lt;EventSurveyAnswer EventSurveyAnswerKey="65819" Description="Yes" AnswerIndex="1" /&gt;
+       &lt;EventSurveyAnswer EventSurveyAnswerKey="65820" Description="No" AnswerIndex="2" /&gt;
+      &lt;/EventSurveyAnswers&gt;
+     &lt;/EventSurveyQuestion&gt;
+    &lt;/EventSurvey&gt;
+    </code></pre>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call :https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50565&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;ShowKey={ShowKey}&amp;InfoTypeFilter={filter code list, in |OPTION|OPTION| format…}</p>
+    <p class="articleContent"><strong>Note:</strong> The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50565. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Attribute</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">EventKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Notified event key for this event survey entry.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">The title of the event/presentation.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Event Code for this Event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventSurveyKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Notified event survey key for this entry.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventSurveyTitle</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">The name of this survey.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Active</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether this survey is active.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DisplayOrder</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The value indicates the sorting preference for this survey.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowSurveyResults</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Controls the result display upon submission.</p>
+                    <p class="articleContent">0 = Do not display results</p>
+                    <p class="articleContent">1 = Display full results grid</p>
+                    <p class="articleContent">2 = Display results grid with only percentages, not counts</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DateAdded</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date and time that this survey was created.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventSurveyQuestions</p>
+                </td>
+                <td>
+                    <p class="articleContent">NODE</p>
+                </td>
+                <td>
+                    <p class="articleContent">Container for event survey questions entries described below.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="articleContent">EventSurveyAnswer nodes:</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Attribute</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">EventSurveyAnswerKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Notified event survey answer key for this survey answer.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Description</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Text of the answer.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AnswerIndex</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Controls display sort of this answer relative to the other answers.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

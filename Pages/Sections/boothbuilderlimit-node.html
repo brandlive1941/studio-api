@@ -1,0 +1,95 @@
+<article>
+    <h1>BoothBuilderLimit Node</h1>
+    <h2>BoothBuilderLimit Node</h2>
+    <p class="articleContent">This node contains Booth Builder limit definition entries for the show. These nodes are contained within a BoothBuilderLimits container node.</p>
+    <p class="articleContent"><strong>Example:</strong></p>
+    <p class="articleContent">&lt;BoothBuilderLimit BoothTypeKey="366" BoothType="Platinum Booth" MaxFeatures="6" MaxStaffers="10" MaxDocsLinks="8" MaxExtras="20" /&gt;</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call :https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50565&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;ShowKey={ShowKey}&amp;InfoTypeFilter={filter code list, in |OPTION|OPTION| format…}</p>
+    <p class="articleContent"><strong>Note:</strong> The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50565. All other parameters may appear in any sequence order.v</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Attribute</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothTypeKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Notified booth type key that this limit entry is associated with.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothType</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Description of the booth type that this limit entry is associated with.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">MaxFeatures</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The maximum number of booth features that can be defined for booths of this type.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">MaxStaffers</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The maximum number of booth staffers that can be added for booths of this type.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">MaxDocsLinks</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The maximum number of documents/links that can be added to booths of this type.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">MaxExtras</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The maximum number of booth extras that can be added to booths of this type.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

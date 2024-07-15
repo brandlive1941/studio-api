@@ -1,0 +1,191 @@
+<article>
+    <h1>Job Category Opcode JCI: Add a New Job Category</h1>
+    <h2>Job Category Opcode JCI: Add a New Job Category</h2>
+    <p class="articleContent">This opcode is used to insert a new Job Category entry into the specified show. The Description must be unique and not already exist.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50560&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;ShowKey={ShowKey}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50560. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 20</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include JCI to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ShowKey to insert the Job Category into.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCategoryDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The description of this Job Category.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCategoryExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">External ID or code to cross-reference this Job Category entry.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">
+        This API returns the status message OK and the new JobCategoryKey upon successful completion.
+    </p>
+    <h2>Text</h2>
+    <pre><code>
+    ### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0 ## OpCode=JCI Status=0 Message=OK JobCategoryKey 123456
+    </code></pre>
+    <h2>HTTP URL-encoded</h2>
+    <pre><code>
+    APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp; OpCodesInError=0&amp;OpCode=JCI&amp;Status=0&amp;Message=OK&amp;JobCategoryKey=123456
+    </code></pre>
+    <h2>XML</h2>
+    <pre><code>
+    &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+    &lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError=”0” &gt;
+    &lt;OpCodeResult OpCode="JCI" Status="0" Message="OK" &gt;
+     &lt;ResultRow&gt;
+      &lt;JobCategoryKey&gt;123456&lt;/JobCategoryKey&gt;
+     &lt;/ResultRow&gt;
+    &lt;/OpCodeResult&gt;
+    &lt;/APIResults&gt;
+    </code></pre>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Error</p>
+                </th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">12</p>
+                </td>
+                <td>
+                    <p class="articleContent">Job Category Description May Not Be Blank!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The value passed for JobCategoryDescription is blank or the parameter was not supplied.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">13</p>
+                </td>
+                <td>
+                    <p class="articleContent">Job Category Already Exists!</p>
+                </td>
+                <td>
+                    <p class="articleContent">A Job Category with this description already exists. Job Category Descriptions must be unique.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

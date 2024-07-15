@@ -1,0 +1,91 @@
+<article>
+    <h1>OpCode E: Check if User exists</h1>
+    <h2>OpCode E: Check if User exists</h2>
+    <p class="articleContent">This opcode is used to test whether a user exists in the VTS system. Both attendees (default) and exhibitor users can be tested. If LookupByExternalUserID is specified as one (1), then the user is located based on the ExternalUserID value. Otherwise, the user is located based on EMailAddress.</p>
+    <h2>Calling The API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50500&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;LookupByExternalUserID={0(default)|1}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50500. All other parameters may appear in any sequence.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>API Parameter</th>
+                <th>Type/Size</th>
+                <th>Req.</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>APIUserAuthCode</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API authorization code as supplied by Notfied.</td>
+            </tr>
+            <tr>
+                <td>APIUserCredentials</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API user credentials as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>OpCodeList</td>
+                <td>Varchar 20</td>
+                <td>Y</td>
+                <td>Should include I to invoke this function.</td>
+            </tr>
+            <tr>
+                <td>OutputFormat</td>
+                <td>Char 1</td>
+                <td>N</td>
+                <td>T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</td>
+            </tr>
+            <tr>
+                <td>LookupByExternalUserID</td>
+                <td>Bit (0/1)</td>
+                <td>N</td>
+                <td>Pass one (1) to look up this person by the supplied ExternalUserID (your internal identifier).</td>
+            </tr>
+            <tr>
+                <td>ExternalUserID</td>
+                <td>Varchar 255</td>
+                <td>N</td>
+                <td>Your internal identifier for this person. This value must be unique for each person.</td>
+            </tr>
+            <tr>
+                <td>EMailAddress</td>
+                <td>Varchar 255</td>
+                <td>Y</td>
+                <td>The person’s email address.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">This API returns the status messages 1, EXISTS, or 0, NOT EXISTS upon successful completion.</p>
+    <h2>Text</h2>
+    <pre><code>
+    ### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0
+    ## OpCode=E Status=0 Message=OK
+    Exists,Description
+    1,EXISTS
+    </code></pre>
+    <h2>HTTP URL-encoded</h2>
+    <pre><code>
+    APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp;OpCodesInError=0&amp;OpCode=E&amp;Status=0&amp;Message=OK&amp;Exists=1&amp;Description=EXISTS
+    </code></pre>
+    <h2>XML</h2>
+    <pre><code>
+    &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+    &lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError=”0” &gt;
+    &lt;OpCodeResult OpCode="E" Status="0" Message="OK" &gt;
+     &lt;ResultRow&gt;
+      &lt;Exists&gt;1&lt;/Exists&gt;
+      &lt;Description&gt;EXISTS&lt;/Description&gt;
+     &lt;/ResultRow&gt;
+    &lt;/OpCodeResult&gt;
+    &lt;/APIResults&gt;
+    </code></pre>
+    <h2>Potential Error Codes</h2>
+    <p class="articleContent">There are no potential error codes for this API call.</p>
+</article>

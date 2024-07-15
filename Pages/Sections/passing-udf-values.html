@@ -1,0 +1,21 @@
+<article>
+    <h1>Passing UDF Values</h1>
+    <h2>Passing UDF values</h2>
+    <p class="articleContent">Several API calls, such as Create, Update and Update/Create User support passing UDF values. These values are combined into a single parameter string, separated by delimiters. The format for passing these values is:</p>
+    <p class="articleContent"> $[UDFNo-UDFValue]$</p>
+    <p class="articleContent">UDFNo is the number of the UDF field and UDFValue is the actual value to be stored for this field. Multiple field values may be passed at the same time by concatenating each delimited field string together into one larger string.</p>
+    <p class="articleContent">Example passing two UDF field values:</p>
+    <p class="articleContent"> $[1000-Small Business]$$[1001-Primary Decisionmaker]$</p>
+    <p class="articleContent">If the UDF field is defined as list-based (dropdown, radio buttons, picklist), the value component supplied must match exactly to one of the choice list items. Comparison is case sensitive. If the value does not match any choice list items, the field value is ignored and not saved.</p>
+    <h2>Multi-Select UDFs</h2>
+    <p class="articleContent">Multi-select UDF values need to be handled slightly differently. Multi-select UDF values are fields that can have zero or more options selected (EX: check all that apply). To pass values for multi-select UDFs, a string of zeros and ones is constructed, each position relating to the Process Sequence Number of the option choice. Process Sequence Numbers may be obtained from Notified.</p>
+    <p class="articleContent">Example passing a multi-select UDF value and a regular UDF value:</p>
+    <p class="articleContent">$[1008-00110110]$$[1001-Primary Decisionmaker]$</p>
+    <p class="articleContent">The value portion of UDF 1008 is 00110110 which instructs the system that choices 1, 2, 5, and 8 are unselected, while choices 3, 4, 6, and 7 are selected.</p>
+    <h2>Alternative HTTP parameter format</h2>
+    <p class="articleContent">UDF values may also be passed as individual HTTP parameters with the format as follows:</p>
+    <p class="articleContent">UDFnnnn=UDFValue</p>
+    <p class="articleContent">nnnn is the UFNo number of the UDF field and UDFValue is the value, as described previously.</p>
+    <p class="articleContent">Example passing UDF field values as separate parameters:</p>
+    <p class="articleContent"> &amp;UDF1000=Small%20Business&amp;UDF1001=Primary%20Decisionmaker&amp;UDF1008=00110110</p>
+</article>

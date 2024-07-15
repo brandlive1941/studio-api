@@ -1,0 +1,125 @@
+<article>
+    <h1>Show Planner OpCode D: Delete an Item from the Show Planner</h1>
+    <h2>Show Planner OpCode D: Delete an Item from the Show Planner</h2>
+    <p class="articleContent">This OpCode is used to remove an item (typically an event/webcast) from the specified person’s Show Planner in the VTS system.  If the specified item does not exist in the show planner, no error is returned. The user specifications may be made using either the email address or External ID.  When using the email address, either omit or set LookupByExternalID to zero (0). When this is set to one (1), the user is located using the External ID.  Planner Items are specified either by their description or by their code (event code). When using the description, either omit or set EntityCode to empty (‘’).  When using the code, either omit or set EntityDescription to empty (‘’).</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request.  This HTTPS request may be a GET or POST operation.  Each request must supply the authentication credentials assigned to the caller by Notified.  Only requests with valid credentials will be processed.  These credentials identify the caller and provide access only to a specific customer area. </p>
+    <p class="articleContent">Show Planner AP:</p>
+    <p class="articleContent">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50530&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;LookupByExternalUserID={0(default)|1}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50520 for the Buddy List API and LASCmd=AI:4;F:APIUTILS!50530 for the Show Planner API. All other parameters may appear in any sequence. </p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>API Parameter</th>
+                <th>Type/Size</th>
+                <th>Req.</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>APIUserAuthCode</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API authorization code as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>APIUserCredentials</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API user credentials as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>OpCodeList</td>
+                <td>Varchar 20</td>
+                <td>Y</td>
+                <td>Should include D to invoke this function.</td>
+            </tr>
+            <tr>
+                <td>OutputFormat</td>
+                <td>Char 1</td>
+                <td>N</td>
+                <td>T for text, H for HTTP URL-encoded, or X for XML.  Defaults to T.</td>
+            </tr>
+            <tr>
+                <td>EMailAddress</td>
+                <td>Varchar 255</td>
+                <td>Y/N</td>
+                <td>Email address for the person whose show planner is being accessed.  If blank, ExternalID must be used and LookupByExternalID must be set to one (1).</td>
+            </tr>
+            <tr>
+                <td>LookupByExternalUserID</td>
+                <td>Bit (0/1)</td>
+                <td>N</td>
+                <td>Pass one (1) to look up this person by the supplied ExternalID (your internal identifier).  If omitted or zero (0), the EMailAddress field is used to look up this person.</td>
+            </tr>
+            <tr>
+                <td>ExternalID</td>
+                <td>Varchar 255</td>
+                <td>N</td>
+                <td>Your internal identifier for this person.  This value must be unique for each person.</td>
+            </tr>
+            <tr>
+                <td>ShowKey</td>
+                <td>Integer</td>
+                <td>Y</td>
+                <td>The show to access the planner for.</td>
+            </tr>
+            <tr>
+                <td>EntityType</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>Entity type enumerator for the type of item being added to the planner.  For Events/Webcasts, this value should be set to one (1) (default).</td>
+            </tr>
+            <tr>
+                <td>EntityDescription</td>
+                <td>Varchar 355</td>
+                <td>N</td>
+                <td>Pass this description to look up the entity by name, rather than by code.</td>
+            </tr>
+            <tr>
+                <td>EntityCode</td>
+                <td>Varchar 255</td>
+                <td>N</td>
+                <td>Pass this code value to look up the entity based on its code, rather than description.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">This API does not return any additional results.</p>
+    <h2>Text</h2>
+
+    <pre><code>
+        ### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0<br />
+        ## OpCode=D Status=0 Message=OK
+    </code></pre>
+    <h2>HTTP URL-encoded</h2>
+    <pre><code>
+    APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp; OpCodesInError=0&amp;OpCode=D&amp;Status=0&amp;Message=OK
+    </code></pre>
+    <h2>XML</h2>
+    <pre><code>
+        &lt;?xml version="1.0" encoding="windows-1252" ?&gt;<br />
+        &lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError=”0” &gt;<br />
+        &lt;OpCodeResult OpCode="D" Status="0" Message="OK" &gt;<br />
+        &lt;/OpCodeResult&gt;<br />
+        &lt;/APIResults&gt;
+    </code></pre>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>Error</th>
+                <th>Message</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>10</td>
+                <td>Invalid Or Missing Entity Specified</td>
+                <td>The value passed in either EntityDescription or EntityCode does not match with an entity in the system.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+</article>

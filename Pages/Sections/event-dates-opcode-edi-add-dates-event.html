@@ -1,0 +1,244 @@
+<article>
+    <h1>Event Dates OpCode EDI: Add Dates for an Event</h1>
+    <h2>Event Dates OpCode EDI: Add Dates for an Event </h2>
+    <p class="articleContent">This opcode is used to add an available date range for an existing event in the specified show. The Event to add dates for may be identified by specifying the EventKey, EventCode, or EventDescription. Note that dates are to be specified in the following 24-hour format: YYYY-MM-DD HH:MI:SS</p>
+    <p class="articleContent"><strong>Example:</strong> 2009-12-31 14:30:00</p>
+    <p class="articleContent">When a date range is assigned with this opcode for a standalone XPOCAST, this API will also assign the following Show-level date ranges: Registration, Live, After-show access, and Data Portal access; as well as the following Event-level date range: OnDemand.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation (except for file uploading which requires a multi-part form post). Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the API call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50540&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;ShowKey={ShowKey}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50540. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 20</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include EDI to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ShowKey that the Event belongs to.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The event key to add dates to.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The event code to add dates to.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 355</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The description of the event to add dates to.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventDatesFromDateTime</p>
+                </td>
+                <td>
+                    <p class="articleContent">Datetime</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Beginning date/time of the range. Must be in YYYY-MM-DD HH:MI:SS format.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventDatesToDateTime</p>
+                </td>
+                <td>
+                    <p class="articleContent">Datetime</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Ending date/time of the range. Must be in YYYY-MM-DD HH:MI:SS format.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent"> </p>
+    <p class="articleContent">This API returns the status message OK and the EventDatesKey upon successful completion.</p>
+    <h2>Text</h2>
+    <p class="articleContent">
+        <br />
+        ### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0
+    </p>
+    <p class="articleContent">## OpCode=EDI Status=0 Message=OK</p>
+    <p class="articleContent">EventDatesKey</p>
+    <p class="articleContent">123456</p>
+    <p class="articleContent"> </p>
+    <p class="articleContent"> </p>
+    <h2>HTTP URL-encoded</h2>
+    <p class="articleContent">
+        <br />
+        APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp; OpCodesInError=0&amp;OpCode=EDI&amp;Status=0&amp;Message=OK&amp;EventDatesKey=123456
+    </p>
+    <p class="articleContent"> </p>
+    <p class="articleContent"> </p>
+    <h2>XML</h2>
+    <p class="articleContent">
+        <br />
+        &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+    </p>
+    <p class="articleContent">&lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError=”0” &gt;</p>
+    <p class="articleContent">&lt;OpCodeResult OpCode="EDI" Status="0" Message="OK" &gt;</p>
+    <p class="articleContent"> &lt;ResultRow&gt;</p>
+    <p class="articleContent">  &lt;EventDatesKey&gt;123456&lt;/EventDatesKey&gt;</p>
+    <p class="articleContent"> &lt;/ResultRow&gt;</p>
+    <p class="articleContent">&lt;/OpCodeResults&gt;</p>
+    <p class="articleContent">&lt;/APIResults&gt;</p>
+    <p class="articleContent"> </p>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Error</p>
+                </th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">51</p>
+                </td>
+                <td>
+                    <p class="articleContent">Event Not Found!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The function could not find a matching event entry based on the values supplied in EventKey, EventCode, and EventDescription.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">53</p>
+                </td>
+                <td>
+                    <p class="articleContent">Event Date Entry Already Exists!</p>
+                </td>
+                <td>
+                    <p class="articleContent">A date range already exists and may not be duplicated. Date ranges may overlap, but may not be identical.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

@@ -1,0 +1,266 @@
+<article>
+    <h1>External User Studio Show Registration API</h1>
+    <h2>External User Studio Show Registration API</h2>
+    <p class="articleContent">Notified provides a feed to virtual event integration features that enable partners and show hosts to programmatically query the list of STUDIO events and whether a given user is registered for that event from their controlled sites and systems.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: </p>
+    <p class="articleContent">
+        <a href="https://nam12.safelinks.protection.outlook.com/?url=https%3A%2F%2Fapi.onlinexperiences.com%2Fscripts%2FServer.nxp%3FLASCmd%3DAI%3A4%3BF%3AAPIUTILS!50566&amp;data=04%7C01%7Cstacie.benton%40notified.com%7Ccb24aa15aaf542f9291b08d9e29340ef%7Cf6156a017c5b4c82b9ba5750c109536e%7C0%7C0%7C637789944346831490%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=alufAV%2F18IH%2F0mbS0BQm3IRogXKEAyx%2F1LpHeAnGlK8%3D&amp;reserved=0">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50566</a><br />
+        &amp;APIUserAuthCode={YourAuthCode}<br />
+        &amp;APIUserCredentials={YourCredentials}<br />
+        &amp;ShowKey={ShowKey}<br />
+        &amp;FromDateTime={FromDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ToDateTime={ToDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ActivityTypeFilter={filter code list, in |OPTION|OPTION| format…}<br />
+        &amp;FilterUserType={0|1|-1 where 0 = attendees, 1 = exhibitors, -1 = both}
+    </p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50569. All other parameters may appear in any sequence order.</p>
+    <h2>Show Filtering</h2>
+    <p class="articleContent">This API supports limiting the results to only those shows that have a live or on-demand status or have a live run date on or after a specified date. Note that this API only operates on STUDIO standalone events.</p>
+    <h2>Parameter Options</h2>
+    <p class="articleContent">This API supports limiting the results returned to a specific subset as needed. The table below details the parameters that can be passed in addition to the required LASCmd, APIUserCredentials, APIUserAuthCode, and user parameters to filter and limit the results returned.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">J for JSON or X for XML. Defaults to J.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">LookupByExternalUserID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Pass one (1) to look up this person by the supplied ExternalUserID (your internal identifier).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExternalUserID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your internal identifier for this person. This value must be unique for each person.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EMailAddress</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The person’s email address.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">LiveStartDate</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 10</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The optional live start date filter for presentations to limit the results for. Must be specified in MM/DD/YYYY format.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">LiveOnly</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag to limit results to only live presentations. Defaults to both live and on-demand.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">TimeZoneInfoKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Time zone specifier to return the dates and times in. See the External User API Appendix documentation for a list of valid TimeZoneInfoKey values. Defaults to UTC.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Example API Call</h2>
+    <p class="articleContent">The following example call retrieves the list of shows and registrations for the user with the email address of Jeff@Notified.com in JSON format:</p>
+    <p class="articleContent">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50569&amp;APIUserAuthCode=JX11452B&amp;APIUserCredentials=DEMO01&amp;EMailAddress=Jeff@Notified.com&amp;OutputFormat=J</p>
+    <p class="articleContent">Before the API begins processing the request, certain credentials and parameter validations are made. If any of these top-level validations fail, an error will be returned. Below is a listing of potential top-level validation errors:</p>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Error</p>
+                </th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid API Credentials Supplied!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The credentials supplied do not match any authorized API accounts.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">API Access Has Been Deactivated!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The specified API account is marked inactive.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">API Access Not Enabled!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The API access permission has not been granted for these credentials.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">API Access Has Expired!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The API credentials have expired.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">API Access From This IP Address Not Allowed!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The API credentials do not allow calls from this IP Address.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">11</p>
+                </td>
+                <td>
+                    <p class="articleContent">User Not Found!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The user with either the specified ExternalUserID or EMailAddress could not be found.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="articleContent">The format of an error return is:</p>
+    <p class="articleContent">&lt;?xml version="1.0" encoding="utf-8"?&gt;</p>
+    <p class="articleContent">&lt;APIStatus Code="{ErrorCode}" Diag="{ErrorDescription}" /&gt;</p>
+    <p class="articleContent">&lt;Shows&gt;&lt;/Shows&gt;</p>
+    <p class="articleContent">{"APIStatus":{ErrorCode},"Diag":"{ErrorDescription}","Shows":[]}</p>
+    <h2>Retrieving Results From The API</h2>
+    <p class="articleContent">The API returns results in JSON or XML format. The response is encoded in UTF-8 format. Attributes are used to convey values for XML nodes.</p>
+    <p class="articleContent">As some of the attributes contain date/time values, it is important to note that all dates and times are in the ODBC standard format of YYYY-MM-DD HH:MM:SS.000. Following is documentation of each attribute for the nodes returned.</p>
+</article>

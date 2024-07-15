@@ -1,0 +1,172 @@
+<article>
+    <h1>Show Package Node</h1>
+    <h2>Show Package Node</h2>
+    <p class="articleContent">This node contains show registration package definitions. These nodes are contained within a ShowPackages container node.</p>
+    <p class="articleContent"><strong>Example:</strong></p>
+    <p class="articleContent">&lt;ShowPackage ShowPackageKey="792" Name="Free Basic Access" ExternalID="" FromDate="2010-01-01 08:00:00" ToDate="2010-02-20 17:00:00" IsAddOnPackage="0" IsPrivate="0" PackagePrecendence="0" DiscountMethod="0" BuiltInDiscountPct="0" BuiltInDiscountAmt="0.00" MinAddOnItems="0" MaxAddOnItems="0" /&gt;</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call :https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50565&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;ShowKey={ShowKey}&amp;InfoTypeFilter={filter code list, in |OPTION|OPTION| format…}</p>
+    <p class="articleContent"><strong>Note:</strong> The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50565. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Attribute</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowPackageKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Notified show package key for this package.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Name</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">The title of the registration package.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">External ID for this registration package.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">FromDateTime</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date</p>
+                </td>
+                <td>
+                    <p class="articleContent">Effective starting availability date and time for this package.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ToDateTime</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date</p>
+                </td>
+                <td>
+                    <p class="articleContent">Effective ending availability date and time for this package.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">IsAddOnPackage</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether this package is an add-on package to be purchased in addition to an existing package.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">IsPrivate</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether this package is private and not visible to general registrants.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">PackagePrecendence</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">A value indicating the relationship of this package to other packages for upgrade purposes.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DiscountMethod</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Control indicating what type of discount to apply. A value of 0 indicates a discount percentage, while a value of one (1) indicates a flat discount amount.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BuiltInDiscountPct</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Percentage discount to be applied, as a whole number.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BuiltInDiscountAmt</p>
+                </td>
+                <td>
+                    <p class="articleContent">Decimal</p>
+                </td>
+                <td>
+                    <p class="articleContent">The currency value of discount to be applied, in USD.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">MinAddOnItems</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The minimum number of add-on items that must be selected to register with this package.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">MaxAddOnItems</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The maximum number of add-on items that can be selected when registering with this<span><span><span><span> package.</span></span></span></span></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

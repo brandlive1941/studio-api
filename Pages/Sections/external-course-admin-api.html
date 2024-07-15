@@ -1,0 +1,79 @@
+<article>
+    <h1>External Course Admin API</h1>
+    <h2>External Course Admin API</h2>
+    <p class="articleContent">Notified provides a portal to virtual event integration feature that enables partners and show hosts to launch the Virtual Trade Show (VTS) platform on-demand using single sign-on and password controls through their controlled sites and systems. Visitors only need to log in once at the host site. Their login information is then automatically sent to the virtual event.</p>
+    <p class="articleContent"> </p>
+    <p class="articleContent">Several different VTS modules may be launched, including the Show module, the Remote Profile Update, the Booth Builder, and the Show Data Portal. This allows partners to fully integrate the VTS platform as a module of their site systems.</p>
+    <p class="articleContent"> </p>
+    <p class="articleContent">The Notified Virtual Trade Show External API also provides third-party partners the ability to programmatically automate the creation and synchronization of shared users and user attributes between their systems and the VTS database. This automation is controlled and orchestrated by the caller. The VTS platform does not currently push calls to third-party systems.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: </p>
+    <p class="articleContent">
+        <a href="https://nam12.safelinks.protection.outlook.com/?url=https%3A%2F%2Fapi.onlinexperiences.com%2Fscripts%2FServer.nxp%3FLASCmd%3DAI%3A4%3BF%3AAPIUTILS!50566&amp;data=04%7C01%7Cstacie.benton%40notified.com%7Ccb24aa15aaf542f9291b08d9e29340ef%7Cf6156a017c5b4c82b9ba5750c109536e%7C0%7C0%7C637789944346831490%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=alufAV%2F18IH%2F0mbS0BQm3IRogXKEAyx%2F1LpHeAnGlK8%3D&amp;reserved=0">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50566</a><br />
+        &amp;APIUserAuthCode={YourAuthCode}<br />
+        &amp;APIUserCredentials={YourCredentials}<br />
+        &amp;ShowKey={ShowKey}<br />
+        &amp;FromDateTime={FromDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ToDateTime={ToDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ActivityTypeFilter={filter code list, in |OPTION|OPTION| format…}<br />
+        &amp;FilterUserType={0|1|-1 where 0 = attendees, 1 = exhibitors, -1 = both}
+    </p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50800. All other parameters may appear in any sequence.</p>
+    <h2>Opcodes</h2>
+    <p class="articleContent">API operations to be performed are specified in the OpCode parameter. More than one opcode may be specified, allowing the caller to perform multiple steps for each UDF. Opcodes are evaluated in order from left to right. Each opcode requires a different set of parameters to be supplied. Parameter values may be shared among multiple opcodes. Following is a list of valid opcodes supported by the API:</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>OpCode</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>L</td>
+                <td>Retrieve a list of attendee’s course completion status.</td>
+            </tr>
+            <tr>
+                <td>C</td>
+                <td>Retrieve a list of courses.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Example API Call</h2>
+    <p class="articleContent">The following example call retrieves the list of UDF information with a Source of 1 in XML format:</p>
+    <p class="articleContent">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50800&amp;APIUserAuthCode=JX11452B&amp;APIUserCredentials=DEMO01&amp;OpCode=L&amp;JSON=1</p>
+    <p class="articleContent"> </p>
+    <p class="articleContent">Before the API begins processing opcodes, certain credential and parameter validations are made. If any of these top-level validations fail, none of the opcodes will be processed. Below is a listing of potential top-level validation errors:</p>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>Error</th>
+                <th>Message</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>50000</td>
+                <td>Invalid API Credentials Supplied!</td>
+                <td>The credentials supplied do not match any authorized API accounts.</td>
+            </tr>
+            <tr>
+                <td>50000</td>
+                <td>API Access Has Been Deactivated!</td>
+                <td>The specified API account is marked inactive.</td>
+            </tr>
+            <tr>
+                <td>50000</td>
+                <td>Invalid Or Missing OpCode Specified!</td>
+                <td>Either the OpCode parameter is empty or missing.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Retrieving Results from the API</h2>
+    <p class="articleContent">The API can return results in several formats, allowing the developer to choose what is most easily consumed. The formats are text-based CSV, XML, and JSON. Results contain a header, indicating the overall success of the call, including textual diagnostic, the number of opcodes successfully processed, and the number of opcodes that resulted in an error. Each opcode then outputs a recap section of its execution, indicating the opcode, processing result, and textual diagnostic. Error codes of 0 indicate success (no error).</p>
+    <p class="articleContent">In addition to the opcode recap, data elements are output for each opcode indicating the return values of the operation. The format of the results depends on the result format requested. They are listed as a header line for text, followed by a values line, each field separated by commas. For XML and JSON, they are listed as child nodes of the opcode response. Example output is included for each opcode in the respective opcode’s documentation.</p>
+</article>

@@ -1,0 +1,795 @@
+<article>
+    <h1>Event OpCode EEU: Update an Event </h1>
+    <h2>Event OpCode EEU: Update an Event </h2>
+    <p class="articleContent">This opcode is used to update an existing event in the specified show. The event to update may be identified by specifying the EventKey, EventDescription, or EventCode. When updating existing events, omitted or empty parameters are ignored.</p>
+    <p class="articleContent">Each event that is created must be created under a valid Event Type (Event Provider – see OpCode EPL) and a valid Event Grouping (see OpCode EGL). Either the actual key values may be passed in the EventTypeKey/EventGroupingKey parameters, or the description may be passed in the EventTypeDescription/EventGroupingDescription parameters and the system will look up the key values.</p>
+    <p class="articleContent">Each event that is created may be created in a specific booth (in-booth presentation). If creating an in-booth presentation, either the actual booth key value may be passed in the BoothKey parameter, or the booth Title may be passed in the EventBoothTitle parameter and the system will look up the booth key value. Alternatively, the Booth External ID may be used in the EventBoothExternalID parameter.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation (except for file uploading which requires a multi-part form post). Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the API call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50540&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;ShowKey={ShowKey}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50540. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 20</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include EEU to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ShowKey that the Event belongs to.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The event key to update.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The event code.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventDatesFromDateTime</p>
+                </td>
+                <td>
+                    <p class="articleContent">Datetime</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Beginning date/time of the Event. Must be in YYYY-MM-DD HH:MI:SS format.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventDatesToDateTime</p>
+                </td>
+                <td>
+                    <p class="articleContent">Datetime</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Ending date/time of the Event. Must be in YYYY-MM-DD HH:MI:SS format.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 355</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The description of the event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventAbstract</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2GB</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Text description of this event that may contain formatted HTML snippets or text.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventTypeKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">A valid Event Provider Type key, or pass the Event Provider Type description in EventTypeDescription and the system will look it up based on the description.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventTypeDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 128</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Description of a valid Event Provider Type.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventGroupingKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">A valid Event Grouping key, or pass the Event Grouping description in EventGroupingDescription and the system will look it up based on the description.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventGroupingDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 50</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Description of a valid Event Grouping.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventSpeakerKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Event speaker associated with this event (see OpCode ESL).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventRuntimeDuration</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 40</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Display information regarding runtime of presentation. Free-form text. (Ex: Approx. 20 minutes)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventEarlyEntranceMinutes</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The number of minutes viewers can access the event before the actual start time.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Session ID or external system linkage. (Ex: BRK-001)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventIconImage</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">A URL path to the image to be displayed when rendering this event in the system. This should be either relative or use the HTTPS protocol.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventParamBlock</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2GB</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Configuration data specific to this event. See Appendix B for details on the format for various Event Providers.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventRequiresRegistration</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether this event requires registration package authorization to view.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventActive</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether this event is active. 0 = Inactive, 1 = Active.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventLaunchNewWindow</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether this event should be launched in a new window.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventFullscreen</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether this event should be shown in IE-specific fullscreen theater mode. (Only applicable if EventLaunchNewWindow = 1)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventIsOnDemand</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether this event is a live/scheduled event (value=0) or an on-demand event (value=1).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventNewWindowWidth</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">A value specifying the window width, in pixels, when launching an event in a new window.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventNewWindowHeight</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">A value specifying the window height, in pixels, when launching an event in a new window.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventBoothKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Booth key to create the event under (in-booth presentation).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventBoothTitle</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 128</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Booth Title to create the event under, if booth key is unknown (in-booth presentation).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventBoothExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Booth External ID to create the event under if booth key unknown (in-booth presentation).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventCustomSortOrder</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Value controlling the sort order when listing events.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventExitAction</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">
+                        Exit action to perform when the event ends. Values are:<br />
+                        1 – Go to booth<br />
+                        2 – Go to event lobby<br />
+                        3 – Go to event survey<br />
+                        4 – Go to specified show floor<br />
+                        5 – Go to another event<br />
+                        7 – Go to specified URL<br />
+                        8 – Go to event group chat<br />
+                        9 – Go to event blog
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventExitData</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 1000</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Command information varying depending upon the ExitAction ID.</p>
+                    <p class="articleContent">
+                        1 – BoothKey<br />
+                        3 – EventSurveyKey<br />
+                        4 – ShowFloorTemplateKey<br />
+                        5 – EventKey<br />
+                        7 – URL (should use HTTPS)<br />
+                        8 – ChatRoomKey<br />
+                        9 – BlogSpaceKey
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventExitActionTarget</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 100</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Window target to navigate. Standard values include ShowFloorFrame, _blank, _top, _parent.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventSubjectCategoryKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Subject Category of this event. (See OpCode SCL)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventCategory</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Category of this event. (See OpCode CTL)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventMaxConcurrentViewers</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The maximum number of viewers that can be in this event simultaneously.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventDescriptionAlts</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2GB</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Alternate language translations. Source = 7, Description FieldNo = 1, Abstract FieldNo = 2. See Appendix A for format.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventAbstractAlts</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2GB</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Alternate language translations. Source = 7, Description FieldNo = 1, Abstract FieldNo = 2. See Appendix A for format.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventKeywords</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 400</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Keywords that are used in a search to help locate this event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventLocaleID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Locale ID indicating the language of this event. (See Locale ID reference in the External User API documentation for a list of values)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EventUDFList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2GB</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">User-defined field data for this event. (See Passing UDF Values reference in the External User API documentation for format details)</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><h2>Return Outputs</h2>
+    <p class="articleContent"> </p>
+    <p class="articleContent">This API returns the status message OK and the EventKey upon successful completion.</p>
+    <p class="articleContent"> </p>
+    <h2>Text</h2>
+    <pre><code>
+    <p class="articleContent">### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0</p>
+    <p class="articleContent">## OpCode=EEU Status=0 Message=OK</p>
+    <p class="articleContent">EventKey</p>
+    <p class="articleContent">123456</p>
+    </code></pre>
+    <h2>HTTP URL-encoded</h2>
+    <pre><code>
+    APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp; OpCodesInError=0&amp;OpCode=EEU&amp;Status=0&amp;Message=OK&amp;EventKey=123456
+    </code></pre>
+    <h2>XML</h2>
+    <pre><code>
+    &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+    &lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError=”0” &gt;
+    &lt;OpCodeResult OpCode="EEU" Status="0" Message="OK" &gt;
+     &lt;ResultRow&gt;
+      &lt;EventKey&gt;123456&lt;/EventKey&gt;
+     &lt;/ResultRow&gt;
+    &lt;/OpCodeResult&gt;
+    &lt;/APIResults&gt;
+    </code></pre>
+
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Error</p>
+                </th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">60</p>
+                </td>
+                <td>
+                    <p class="articleContent">Event Type Not Allowed!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Event Type specified is not authorized for use in this show.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">61</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Event Type Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Event Type does not exist.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">62</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Event Grouping Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The EventGroupingKey specified was invalid or the EventGroupingDescription was not found.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">63</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Event Speaker Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The EventSpeakerKey was specified but not valid.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">64</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Subject Category Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The EventSubjectCategoryKey was specified but not valid.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">65</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Booth Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The EventBoothKey or EventBoothTitle was specified but the booth was not found.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">66</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid LocaleID Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The EventLocaleID was specified but not valid.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">68</p>
+                </td>
+                <td>
+                    <p class="articleContent">Event With This Description Already Exists!</p>
+                </td>
+                <td>
+                    <p class="articleContent">An event with this description already exists. Event descriptions need to be unique.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">69</p>
+                </td>
+                <td>
+                    <p class="articleContent">Event Not Found!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The function could not find a matching event entry based on the values supplied in EventKey, EventCode, and EventDescription.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

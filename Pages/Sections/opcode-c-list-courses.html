@@ -1,0 +1,112 @@
+<article>
+    <h1>OpCode C: List Courses</h1>
+    <h2>OpCode C: List Courses</h2>
+    <p class="articleContent">This opcode is used to list courses from the VTS system.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is:https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50800&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCode={Opcode&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50800. All other parameters may appear in any sequence.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>API Parameter</th>
+                <th>Type/Size</th>
+                <th>Req.</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>APIUserAuthCode</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API authorization code as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>APIUserCredentials</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API user credentials as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>OpCode</td>
+                <td>Varchar 20</td>
+                <td>Y</td>
+                <td>Should be L to invoke this function.</td>
+            </tr>
+            <tr>
+                <td>JSON</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>Pass one (1) for JSON formatted output. Defaults to 1 (one).</td>
+            </tr>
+            <tr>
+                <td>CSV</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>Pass one (1) for CSV formatted output. Defaults to 0 (zero). Overrides JSON.</td>
+            </tr>
+            <tr>
+                <td>XML</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>Pass one (1) for XML formatted output. Defaults to 0 (zero). Overrides JSON and CSV.</td>
+            </tr>
+            <tr>
+                <td>ShowKey</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>Filter courses by Show Key.</td>
+            </tr>
+            <tr>
+                <td>EventKey</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>Filter courses by Event Key.</td>
+            </tr>
+        </tbody>
+    </table><h2>Return Outputs</h2>
+    <p class="articleContent">This API returns the VTS UDF Group Key</p>
+    <h2>CSV/Text</h2>
+    <pre><code>
+    ShowKey,CourseKey,CourseTitle,RequiredCourseKey,RequiredCourseTitle,LinkedEventKey,LinkedEventDesc,EnrollmentType,CanTestOut,CourseActive,TestCount
+    9031,5751,Webcast v001,0,,74056,Webcast v001,Automatic,No,1,0
+    9031,5752,Test for CPE,5751,Webcast v001,0,,Automatic,No,1,1
+    </code></pre>
+    <h2>XML</h2>
+    <pre><code>
+    &lt;Courses&gt;
+      &lt;Course&gt;
+        &lt;ShowKey&gt;9031&lt;/ShowKey&gt;
+        &lt;CourseKey&gt;5751&lt;/CourseKey&gt;
+        &lt;CourseTitle&gt;Webcast v001&lt;/CourseTitle&gt;
+        &lt;RequiredCourseKey&gt;0&lt;/RequiredCourseKey&gt;
+        &lt;RequiredCourseTitle/&gt;
+        &lt;LinkedEventKey&gt;74056&lt;/LinkedEventKey&gt;
+        &lt;LinkedEventDesc&gt;Webcast v001&lt;/LinkedEventDesc&gt;
+        &lt;EnrollmentType&gt;Automatic&lt;/EnrollmentType&gt;
+        &lt;CanTestOut&gt;No&lt;/CanTestOut&gt;
+        &lt;CourseActive&gt;1&lt;/CourseActive&gt;
+        &lt;TestCount&gt;0&lt;/TestCount&gt;
+      &lt;/Course&gt;
+      &lt;Course&gt;
+        &lt;ShowKey&gt;9031&lt;/ShowKey&gt;
+        &lt;CourseKey&gt;5752&lt;/CourseKey&gt;
+        &lt;CourseTitle&gt;Test for CPE&lt;/CourseTitle&gt;
+        &lt;RequiredCourseKey&gt;5751&lt;/RequiredCourseKey&gt;
+        &lt;RequiredCourseTitle&gt;Webcast v001&lt;/RequiredCourseTitle&gt;
+        &lt;LinkedEventKey&gt;0&lt;/LinkedEventKey&gt;
+        &lt;LinkedEventDesc/&gt;
+        &lt;EnrollmentType&gt;Automatic&lt;/EnrollmentType&gt;
+        &lt;CanTestOut&gt;No&lt;/CanTestOut&gt;
+        &lt;CourseActive&gt;1&lt;/CourseActive&gt;
+        &lt;TestCount&gt;1&lt;/TestCount&gt;
+      &lt;/Course&gt;
+    &lt;/Courses&gt;
+    </code></pre>
+    <h2>JSON</h2>
+    <pre><code>
+    [{"ShowKey": 9031,"CourseKey": 5751,"CourseTitle": "Webcast v001","RequiredCourseKey": 0,"RequiredCourseTitle": "","LinkedEventKey": 74056,"LinkedEventDesc": "Webcast v001","EnrollmentType": "Automatic","CanTestOut": "No","CourseActive": true,"TestCount": 0}, {"ShowKey": 9031,"CourseKey": 5752,"CourseTitle": "Test for CPE","RequiredCourseKey": 5751,"RequiredCourseTitle": "Webcast v001","LinkedEventKey": 0,"LinkedEventDesc": "","EnrollmentType": "Automatic","CanTestOut": "No","CourseActive": true,"TestCount": 1}, {"ShowKey": 9031,"CourseKey": 5885,"CourseTitle": "Test for 9031","RequiredCourseKey": 0,"RequiredCourseTitle": "","LinkedEventKey": 0,"LinkedEventDesc": "","EnrollmentType": "Automatic","CanTestOut": "No","CourseActive": true,"TestCount": 1}]
+    </code></pre>
+</article>

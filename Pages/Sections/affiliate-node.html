@@ -1,0 +1,238 @@
+<article>
+    <h1>Affiliate Node</h1>
+    <h2>Affiliate Node</h2>
+    <p class="articleContent">This node contains affiliate entries for the show. These nodes are contained within an Affiliates container node.</p>
+    <p class="articleContent"><strong>Example:</strong></p>
+    <p class="articleContent">&lt;Affiliate AffiliateKey="394" ContactEMailAddress="affiliate@Notified.com" ContactFirstName="Jeff" ContactLastName="Pryhuber" CompanyName="Notified, Inc." Address1="3000 Lakeside Drive" Address2="" City="Bannockburn" StateProv="IL" Country="USA" PostalCode="60015" Phone="1234567890" EmployerIDNumberSSN="" LoginID="Notified" OrganizationType="Affiliate" SalesOwner="" CommissionType="Standard Rate" DateAdded="2007-01-29 09:43:57" Active="1" /&gt;</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call :https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50565&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;ShowKey={ShowKey}&amp;InfoTypeFilter={filter code list, in |OPTION|OPTION| format…}</p>
+    <p class="articleContent"><strong>Note:</strong> The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50565. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Attribute</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">AffiliateKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Notified affiliate key for this affiliate.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ContactEMailAddress</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Email address for this affiliate.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ContactFirstName</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">First name of the affiliate.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ContactLastName</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Last name of the affiliate.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CompanyName</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Company the affiliate is associated with.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Address1</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Address line 1 of the affiliate.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Address2</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Address line 2 of the affiliate.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">City</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">City of the affiliate.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">StateProv</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">State/province of the affiliate.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Country</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Country of the affiliate.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">PostalCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Zip/postal code of the affiliate.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Phone</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Affiliate phone number.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EmployerIDNumberSSN</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Tax ID information.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">LoginID</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Login ID for the affiliate to the Affiliate Portal.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OrganizationType</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Type of affiliate. Values are Affiliate, Network, and Partner.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SalesOwner</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Sales owner for this affiliate.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CommissionType</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">Description of the commission structure assigned to this affiliate.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DateAdded</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date and time that the affiliate was added.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Active</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether the affiliate is active.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

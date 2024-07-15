@@ -1,0 +1,86 @@
+<article>
+    <h1>External Briefcase API</h1>
+    <h2>External Briefcase API</h2>
+    <p class="articleContent">Notified provides a portal to virtual event integration feature that enables partners and show hosts to programmatically interact with the User Briefcase feature of the Virtual Trade Show (VTS) platform on-demand from their controlled sites and systems.</p>
+    <p class="articleContent">The NotifiedVirtual Trade Show External API also provides third-party partners the ability to programmatically automate the creation and synchronization of shared data entities and attributes between their systems and the VTS database. This automation is controlled and orchestrated by the caller. The VTS platform does not currently push calls to third-party systems.</p>
+    <p class="articleContent"> </p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is:</p>
+    <p class="articleContent">
+        <a href="https://nam12.safelinks.protection.outlook.com/?url=https%3A%2F%2Fapi.onlinexperiences.com%2Fscripts%2FServer.nxp%3FLASCmd%3DAI%3A4%3BF%3AAPIUTILS!50566&amp;data=04%7C01%7Cstacie.benton%40notified.com%7Ccb24aa15aaf542f9291b08d9e29340ef%7Cf6156a017c5b4c82b9ba5750c109536e%7C0%7C0%7C637789944346831490%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=alufAV%2F18IH%2F0mbS0BQm3IRogXKEAyx%2F1LpHeAnGlK8%3D&amp;reserved=0">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50566</a><br />
+        &amp;APIUserAuthCode={YourAuthCode}<br />
+        &amp;APIUserCredentials={YourCredentials}<br />
+        &amp;ShowKey={ShowKey}<br />
+        &amp;FromDateTime={FromDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ToDateTime={ToDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ActivityTypeFilter={filter code list, in |OPTION|OPTION| format…}<br />
+        &amp;FilterUserType={0|1|-1 where 0 = attendees, 1 = exhibitors, -1 = both}
+    </p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50535. All other parameters may appear in any sequence.</p>
+    <h2>OpCodes</h2>
+    <p class="articleContent">API operations to be performed are specified in the OpCode parameter. Each opcode requires a different set of parameters to be supplied.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>OpCode</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>A</td>
+                <td>Add Attachment to User Briefcase</td>
+            </tr>
+            <tr>
+                <td>R</td>
+                <td>Remove Attachment From User Briefcase</td>
+            </tr>
+            <tr>
+                <td>L</td>
+                <td>List Attachments in User Briefcase</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <p class="articleContent">Note: The specific parameters accepted and return output for each opcode are documented individually, including potential errors may that occur to each opcode. The following example call adds a document 112358 to a particular user’s briefcase.</p>
+    <p class="articleContent"> </p>
+    <h2>Example API Call</h2>
+    <p class="articleContent">The following example call adds a document 112358 to a particular user’s briefcase:</p>
+    <p class="articleContent">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50535&amp;APIUserAuthCode=aaa&amp;APIUserCredentials=DEbbbMO01&amp;OpCode=A&amp;OutputFormat=X&amp;EMailAddress=TEST@TEST.COM&amp;AttachmentKey=112358</p>
+    <p class="articleContent">Before the API begins processing opcodes, certain credential and parameter validations are made. If any of these top-level validations fail, none of the opcodes will be processed. Below is a listing of potential top-level validation errors:</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>Error</th>
+                <th>Message</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>50000</td>
+                <td>Invalid API Credentials Supplied!</td>
+                <td>The credentials supplied do not match any authorized API accounts.</td>
+            </tr>
+            <tr>
+                <td>50000</td>
+                <td>API Access Has Been Deactivated!</td>
+                <td>The specified API account is marked inactive.</td>
+            </tr>
+            <tr>
+                <td>50000</td>
+                <td>Invalid Or Missing OpCode Specified!</td>
+                <td>Either the OpCode parameter is empty or missing.</td>
+            </tr>
+            <tr>
+                <td>-10</td>
+                <td>Invalid OpCode Specified!</td>
+                <td>The specified OpCode is invalid.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Retrieving the results from the API</h2>
+    <p class="articleContent">The API can return results in several formats, allowing the developer to choose what is most easily consumed. The formats are text-based, HTTP URL-encoded, and XML. Results contain a header, indicating the overall success of the call, including textual diagnostic, the number of opcodes successfully processed, and the number of opcodes that resulted in an error. Each opcode then outputs a recap section of its execution, indicating the opcode, processing result, and textual diagnostic. Error codes of 0 indicate success (no error).</p>
+    <p class="articleContent">In addition to the opcode recap, data elements are output for certain opcodes indicating the return values of the operation. The format of the results depends on the result format requested. For URL-encoded, these are listed as a string of HTTP parameter names and values. They are listed as a header line for text, followed by a values line, each field separated by commas. For XML, they are listed as child nodes of the opcode response. Example output is included for each opcode in the respective opcode’s documentation.</p>
+</article>

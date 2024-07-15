@@ -1,0 +1,82 @@
+<article>
+    <h1>Booth Informational Helper OpCode BT: List Booth Types</h1>
+    <h2>Booth Informational Helper OpCode BT: List Booth Types</h2>
+    <p class="articleContent">This opcode is used to list defined Booth Types.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation (except for file uploading which requires a multi-part form post). Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50550&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50550. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>API Parameter</th>
+                <th>Type/Size</th>
+                <th>Req.</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>APIUserAuthCode</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API authorization code as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>APIUserCredentials</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API user credentials as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>OpCodeList</td>
+                <td>Varchar 2000</td>
+                <td>Y</td>
+                <td>Should include BT to invoke this function.</td>
+            </tr>
+            <tr>
+                <td>OutputFormat</td>
+                <td>Char 1</td>
+                <td>N</td>
+                <td>T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">
+        This API returns a result set of booth type information upon successful completion. The result set is structured:<br />
+    </p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>Column</th>
+                <th>Type/Size</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Booth TypeKey</td>
+                <td>Integer</td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>Varchar 80</td>
+            </tr>
+            <tr>
+                <td>DisplayOrder</td>
+                <td>Integer</td>
+            </tr>
+            <tr>
+                <td>ReportingRowLimit</td>
+                <td>Integer</td>
+            </tr>
+            <tr>
+                <td>JobPostingsLimit</td>
+                <td>Integer</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Potential Error Codes</h2>
+    <p class="articleContent">There are no potential error codes for this API call.</p>
+</article>

@@ -1,0 +1,426 @@
+<article>
+    <h1>OpCode UDI: Create a UDF Definition</h1>
+    <h2>OpCode UDI: Create a UDF Definition</h2>
+    <p class="articleContent">This opcode is used to create a UDF Definition.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50507&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={J|X|H|T(default)} &amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50507. All other parameters may appear in any sequence.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 20</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include UDI to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, X for XML, J for JSON. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Source</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Pass one (1) for attendee, two (2) for documents, three (3) for exhibitor, four (4) for booth, five (5) for show, seven (7) for event/presentation.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFGroupKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">-</p>
+                </td>
+                <td>
+                    <p class="articleContent">The identifier for the UDF Group to create this UDF Definition with.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFGroupDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 40</p>
+                </td>
+                <td>
+                    <p class="articleContent">-</p>
+                </td>
+                <td>
+                    <p class="articleContent">The description for the UDF Group to create this UDF Definition with. This is used when the UDFGroupKey is not included</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFDefUDFNo</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Unique UDF number by Source in your tenant. If zero (0), use the next available number.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFDefDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Unique UDF description by Source in your tenant.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFDefColumnLabel</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Label for the UDF Definition. Defaults to UDFDefDescription.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFDefDataType</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Zero (0) for string, one (1) for Number, two (2) for Integer, three (3) for Date, four (4) for Logical.</p>
+                    <p class="articleContent">Defaults to zero (0) (string).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFDefMaxChars</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The maximum number of characters for the string data type. Defaults to zero (0).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFDefEntryType</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">One (1) for Entry Field, two (2) for Text Area, four (4) for Checkbox, eight (8) for Radio Buttons, 32 for Drop Down, 64 for Look Up, 128 for Multi-select Checkbox.</p>
+                    <p class="articleContent">Defaults to one (1) (Entry Field)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFDefIncludePopupWidget</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Defaults to zero (0)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFDefRequired</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Defaults to zero (0)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFDefDisplayOnly</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Defaults to zero (0)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFDefOneTimeEntryOnly</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Defaults to zero (0)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFDefActive</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Defaults to one (1)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFDefAllowRecipientEdit</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Defaults to zero (0)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFDefSeqNo</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Defaults to zero (0)</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <p class="articleContent"> </p>
+    <h2>&gt;Return Outputs</h2>
+    <p class="articleContent">This API returns the VTS UDF Group Key that was deleted.</p>
+    <p class="articleContent"> </p>
+    <h2>Text</h2>
+    <pre><code>
+    ### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0
+    ## OpCode=UDI Status=0 Message=OK
+    UDFDefKey
+    123456
+    </code></pre>
+    <h2>HTTP URL-encoded</h2>
+    <pre><code>
+    APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp;OpCodesInError=0&amp;OpCode=UDI&amp;Status=0&amp;Message=OK&amp;UDFDefKey=123456
+    </code></pre>
+    <h2>XML</h2>
+    <pre><code>
+    &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+    &lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError="0" &gt;
+    &lt;OpCodeResult OpCode="UDI" Status="0" Message="OK" &gt;
+    &lt;ResultRow&gt;
+    &lt;UDFDefKey&gt;123456&lt;/UDFDefKey&gt;
+    &lt;/ResultRow&gt;
+    &lt;/OpCodeResult&gt;
+    &lt;/APIResults&gt;
+    </code></pre>
+    <h2>JSON</h2>
+    <pre><code>
+        {"APIResults":{"APICallResult":"0","APICallDiagnostic":"OK","OpCodesProcessed":"1","OpCodesInError":"0","OpCodeResults":[{"OpCode":"UDI","Status":"0","Message":"OK","Results":[{"UDFDefKey":123456}]}]}}
+    </code></pre>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Error</p>
+                </th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">20</p>
+                </td>
+                <td>
+                    <p class="articleContent">Grouping not found!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The UDF Group defined by the UDFGroupKey and UDFGroupDescription was not found.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">21</p>
+                </td>
+                <td>
+                    <p class="articleContent">Description is blank!</p>
+                </td>
+                <td>
+                    <p class="articleContent">UDFDescription is required and must be non-blank.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">22</p>
+                </td>
+                <td>
+                    <p class="articleContent">Description already exists!</p>
+                </td>
+                <td>
+                    <p class="articleContent">UDFDescription must be unique by Source in your tenant.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">23</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid DataType Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">UDFDefDataType must be between 0 and 4 inclusive.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">24</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid EntryType Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">UDFDefEntryType must be in the list of 1,2,4,8,32,64,128.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">25</p>
+                </td>
+                <td>
+                    <p class="articleContent">UDFDef not found!</p>
+                </td>
+                <td>
+                    <p class="articleContent">UDFDefUDFNo, when not using the default value, must be unique by Source in your tenant.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

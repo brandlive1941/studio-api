@@ -1,0 +1,218 @@
+<article>
+    <h1>External Exhibitors and Booths API</h1>
+    <h2>External Exhibitors and Booths API</h2>
+    <p class="articleContent">Notified provides a portal to virtual event integration features that enable partners and show hosts to programmatically interact with the Exhibitor and Booth features of the Virtual Trade Show platform on-demand from their controlled sites and systems.</p>
+    <p class="articleContent"> </p>
+    <p class="articleContent">The Notified Virtual Trade Show External API also provides third-party partners the ability to programmatically automate the creation and synchronization of shared entities and attributes between their systems and the VTS database. This automation is controlled and orchestrated by the caller. The VTS platform does not currently push calls to third-party systems.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent"> </p>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation (except for file uploading which requires a multi-part form post). Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: </p>
+    <p class="articleContent">
+        <a href="https://nam12.safelinks.protection.outlook.com/?url=https%3A%2F%2Fapi.onlinexperiences.com%2Fscripts%2FServer.nxp%3FLASCmd%3DAI%3A4%3BF%3AAPIUTILS!50566&amp;data=04%7C01%7Cstacie.benton%40notified.com%7Ccb24aa15aaf542f9291b08d9e29340ef%7Cf6156a017c5b4c82b9ba5750c109536e%7C0%7C0%7C637789944346831490%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=alufAV%2F18IH%2F0mbS0BQm3IRogXKEAyx%2F1LpHeAnGlK8%3D&amp;reserved=0">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50566</a><br />
+        &amp;APIUserAuthCode={YourAuthCode}<br />
+        &amp;APIUserCredentials={YourCredentials}<br />
+        &amp;ShowKey={ShowKey}<br />
+        &amp;FromDateTime={FromDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ToDateTime={ToDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ActivityTypeFilter={filter code list, in |OPTION|OPTION| format…}<br />
+        &amp;FilterUserType={0|1|-1 where 0 = attendees, 1 = exhibitors, -1 = both}
+    </p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50550. All other parameters may appear in any sequence order.</p>
+    <h2>OpCodes</h2>
+    <p class="articleContent">API operations to be performed are specified in the OpCode parameter. More than one opcode may be specified, allowing the caller to perform multiple steps for each person. An exception to this is when uploading file attachments. File uploads must be invoked in a single, separate call. Opcodes are evaluated in order from left to right. Each opcode may require a different set of parameters to be supplied. Parameter values may be shared among multiple opcodes. Following is a list of valid opcodes supported by the API:</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>OpCode</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Exhibitor</strong></td>
+            </tr>
+            <tr>
+                <td>EI</td>
+                <td>Add a new Exhibitor.</td>
+            </tr>
+            <tr>
+                <td>EU</td>
+                <td>Update an Exhibitor.</td>
+            </tr>
+            <tr>
+                <td>EC</td>
+                <td>Add or update an Exhibitor.</td>
+            </tr>
+            <tr>
+                <td>ER</td>
+                <td>Retrieve Exhibitor information. </td>
+            </tr>
+            <tr>
+                <td>EL</td>
+                <td>List Users for the specified Exhibitor.</td>
+            </tr>
+            <tr>
+                <td><strong>Exhibitor Informational Helpers</strong></td>
+            </tr>
+            <tr>
+                <td>ET</td>
+                <td>List Exhibitor Types.</td>
+            </tr>
+            <tr>
+                <td>ES</td>
+                <td>List Exhibitor Statuses.</td>
+            </tr>
+            <tr>
+                <td>Booth</td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>BI</td>
+                <td>Add a new Booth.</td>
+            </tr>
+            <tr>
+                <td>BU </td>
+                <td>Update a Booth.</td>
+            </tr>
+            <tr>
+                <td>BC</td>
+                <td>Add or update a Booth.</td>
+            </tr>
+            <tr>
+                <td>BR</td>
+                <td>Retrieve Booth information. </td>
+            </tr>
+            <tr>
+                <td><strong>Booth Document/Links</strong></td>
+            </tr>
+            <tr>
+                <td>DL</td>
+                <td>List Documents/Links for a Booth. </td>
+            </tr>
+            <tr>
+                <td>DI</td>
+                <td>Insert a new Document/Link to a Booth. </td>
+            </tr>
+            <tr>
+                <td>DU</td>
+                <td>Update a Document/Link from a Booth. </td>
+            </tr>
+            <tr>
+                <td>DD</td>
+                <td>Delete a Document/Link from a Booth. </td>
+            </tr>
+            <tr>
+                <td>DC</td>
+                <td>Create or Update a Document/Link in a Booth. </td>
+            </tr>
+            <tr>
+                <td><strong>Booth Informational Helpers</strong></td>
+            </tr>
+            <tr>
+                <td>BT</td>
+                <td>List Booth Types.</td>
+            </tr>
+            <tr>
+                <td>BL</td>
+                <td>List Booth Layouts.</td>
+            </tr>
+            <tr>
+                <td>BX</td>
+                <td>List Booth Templates. </td>
+            </tr>
+            <tr>
+                <td><strong>Booth Staffers</strong></td>
+            </tr>
+            <tr>
+                <td>SL</td>
+                <td>List the Staffers for a Booth. </td>
+            </tr>
+            <tr>
+                <td>SI</td>
+                <td>Add a new Staffer to a Booth.</td>
+            </tr>
+            <tr>
+                <td>SD</td>
+                <td>Delete a Staffer from a Booth. </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent">The specific parameters accepted and return output for each opcode are documented individually, including potential errors that may occur specific to each opcode.<span><span><span> </span></span></span></p>
+    <h2>Example API</h2>
+    <p class="articleContent">The following example call retrieves the list of users currently defined for the Exhibitor with the ExhibitorKey of 99347:</p>
+    <p class="articleContent">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50550&amp;APIUserAuthCode=JX11452B&amp;APIUserCredentials=DEMO01&amp;OpCodeList=EL&amp;OutputFormat=X&amp;ExhibitorKey=99347</p>
+    <p class="articleContent">Before the API begins processing opcodes, certain credential and parameter validations are made. If any of these top-level validations fail, none of the opcodes will be processed. Below is a listing of potential top-level validation errors:</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>Error</th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid API Credentials Supplied!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The credentials supplied do not match any authorized API accounts.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">API Access Has Been Deactivated!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The specified API account is marked inactive.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Show Key Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ShowKey parameter does not match any valid shows for this account.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Or Missing OpCode(s) Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">Either the OpCode parameter is empty or missing.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">-10</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid OpCode Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The specified OpCode is invalid.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><h2>Retrieving Results from the API</h2>
+    <p class="articleContent">The API can return results in several formats, allowing the developer to choose what is most easily consumed. The formats are text-based, HTTP URL-encoded, and XML. Results contain a header, indicating the overall success of the call, including textual diagnostic, the number of opcodes successfully processed, and the number of opcodes that resulted in an error. Each opcode then outputs a recap section of its execution, indicating the opcode, processing result, and textual diagnostic. Error codes of 0 indicate success (no error).</p>
+    <p class="articleContent">In addition to the opcode recap, data elements are output for certain opcodes indicating the return values of the operation. The format of the results depends on the result format requested. For URL-encoded, these are listed as a string of HTTP parameter names and values. They are listed as a header line for text, followed by a values line, each field separated by commas. For XML, they are listed as child nodes of the opcode response. Example output is included for each opcode in the respective opcode’s documentation.</p>
+</article>

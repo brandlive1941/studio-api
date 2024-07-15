@@ -1,0 +1,616 @@
+<article>
+    <h1>Booth OpCode BI: Add New Booth</h1>
+    <h2>Booth OpCode BI: Add New Booth</h2>
+    <p class="articleContent">This opcode is used to add a new Booth to the specified show. Booths are created under an exhibitor, and each exhibitor can have multiple booths. The exhibitor to create the booth under may be identified by specifying the ExhibitorKey or the ExhibitorExternalID parameters. Booth Titles must be unique across the show.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation (except for file uploading which requires a multi-part form post). Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50550&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50550. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include BI to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Show Key to create the booth in.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Exhibitor Key value to create the booth under.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 25</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">External ID or code to cross-reference this exhibitor entry to create the booth under.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothTitle</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 128</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Title of the booth.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Description</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Description of this booth.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothLayoutKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The key-value indicating the layout template to use when rendering this booth. If omitted, one will be selected by the system. (see opcode BL)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">PrivateBooth</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether this booth is private (1) or public (0).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AllowStaffToSeeVisitTab</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Control flag indicating whether booth staffers can see the special in-booth visits reporting tab.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothTypeKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Key-value indicating the type of booth this is. If omitted, one will be selected by the system. (See opcode BT)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothMessage</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2000</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Message or greeting displayed in the booth.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SearchTermsList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 1000</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">List of search terms, separated by spaces, used to locate this booth when searching the show.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothContactKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">A valid Show User Key identifying the main booth administrator. If not specified, the system will attempt to look this up from the Exhibitor Contact value, if defined, or a person associated with this exhibitor.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ApprovalLevel</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer (0-3)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Approval level for this booth. Values:</p>
+                    <p class="articleContent">0 = unsubmitted</p>
+                    <p class="articleContent">1 = submitted</p>
+                    <p class="articleContent">2 = approved</p>
+                    <p class="articleContent">3 = rejected</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothImage</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">URL identifying the image/logo for this booth.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BillingMemo</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2GB</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Additional comments and notes regarding this booth.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">External ID or code to cross-reference this booth entry.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">LocaleID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Locale ID indicating the default language of this booth. (See Locale ID reference in the External User API documentation for a list of values)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothTemplateKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Key-value indicating the template to use when creating the booth. Templates can be defined allowing the creation of standard Booth Builder parameters, tabs, giveaways, and tab security. (See opcode BX)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CreateDefaultTab</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">If the value is one (1) and BoothTemplateKey is not specified, this will create a default tab of type External URL, labeled About Us pointing to the WebSiteURL value defined for the Exhibitor.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothUDFList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2GB</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">User-defined field data for this booth. (See Passing UDF Values reference in the External User API documentation for format details)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include BI to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothTemplateKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Key-value indicating the template to use when creating the booth. Templates can be defined allowing the creation of standard Booth Builder parameters, tabs, giveaways, and tab security. (See opcode BX)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CreateDefaultTab</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">If the value is one (1) and BoothTemplateKey is not specified, this will create a default tab of type External URL, labeled About Us pointing to the WebSiteURL value defined for the Exhibitor.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothUDFList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2GB</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">User-defined field data for this booth. (See Passing UDF Values reference in the External User API documentation for format details)</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">This API returns the status message OK and the new BoothKey upon successful completion.</p>
+    <p class="articleContent"> </p>
+    <h2>Text</h2>
+    <p class="articleContent">### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0</p>
+    <p class="articleContent">## OpCode=BI Status=0 Message=OK</p>
+    <p class="articleContent">BoothKey</p>
+    <p class="articleContent">123456</p>
+    <p class="articleContent"> </p>
+    <h2>HTTP URL-encoded</h2>
+    <p class="articleContent">APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp; OpCodesInError=0&amp;OpCode=BI&amp;Status=0&amp;Message=OK&amp;BoothKey=123456</p>
+    <p class="articleContent"> </p>
+    <h2>XML</h2>
+    <p class="articleContent">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</p>
+    <p class="articleContent">&lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError=”0” &gt;</p>
+    <p class="articleContent">&lt;OpCodeResult OpCode="BI" Status="0" Message="OK" &gt;</p>
+    <p class="articleContent"> &lt;ResultRow&gt;</p>
+    <p class="articleContent">  &lt;BoothKey&gt;123456&lt;/BoothKey&gt;</p>
+    <p class="articleContent"> &lt;/ResultRow&gt;</p>
+    <p class="articleContent">&lt;/OpCodeResult&gt;</p>
+    <p class="articleContent">&lt;/APIResults&gt;</p>
+    <p class="articleContent"> </p>
+    <p class="articleContent"> </p>
+    <h2> </h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Error</p>
+                </th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">501</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Or Missing Exhibitor!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The exhibitor to create the booth for could not be found based on the values passed for ExhibitorKey and ExhibitorExternalID.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">502</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Or Missing Show!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ShowKey parameter was invalid or not supplied.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">503</p>
+                </td>
+                <td>
+                    <p class="articleContent">A Booth With This External ID Already Exists!</p>
+                </td>
+                <td>
+                    <p class="articleContent">If passing BoothExternalID, this value must be unique across booths in this show.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">504</p>
+                </td>
+                <td>
+                    <p class="articleContent">A Booth With This Name Already Exists!</p>
+                </td>
+                <td>
+                    <p class="articleContent">Booth titles must be unique in the show.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">505</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Or Missing Booth Name!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The BoothTitle parameter was empty or not supplied.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">506</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Or Missing Booth Type!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The BoothTypeKey parameter specified is invalid.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">507</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Booth Contact Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The BoothContactKey specified is invalid in the list of Show Users.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">508</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Or Missing Booth Layout!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The BoothLayoutKey specified is invalid.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">509</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Booth Template Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The BoothTemplateKey specified is invalid.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">510</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Language ID!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The value specified in LocaleID is invalid.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">511</p>
+                </td>
+                <td>
+                    <p class="articleContent">Missing Booth Description</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Description parameter is empty or omitted.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

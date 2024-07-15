@@ -1,0 +1,217 @@
+<article>
+    <h1>Booth Staffer OpCode SC: Create Or Update A Booth Staffer</h1>
+    <h2>Booth Staffer OpCode SC: Create Or Update A Booth Staffer</h2>
+    <p class="articleContent">This opcode is used to update the settings for a booth staffer, if the user exists, or to add them as a staffer in a specified Booth. The Booth to update staffing information for may be identified via the BoothKey, BoothExternalID, or BoothTitle parameters. The staffer to update may be identified via the StafferUserKey or StafferEMailAddress parameters.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation (except for file uploading which requires a multi-part form post). Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50550&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50550. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include SC to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Show Key that the booth exists in.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The key value identifying the booth to add staff to.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">External ID or code to cross-reference this booth entry.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothTitle</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 128</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Title for this booth.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">StafferUserKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Show User Key to add as a staffer.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">StafferEMailAddress</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The email address of the show user to add as a staffer.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">IsBoothAdmin</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Specify 1 if this user is an administrator or 0 if they are just a staffer. Omit this parameter to not change the existing value.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CanEditJob</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Specify 1 if this user can edit job postings, else 0. Omit this parameter to not change the existing value.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">HideFromRepList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Specify 1 if this user should not appear in the booth rep list, else 0. Omit this parameter to not change the existing value.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">See the descriptions of OpCodes SI and SU for more information on the return completion results.</p>
+    <p class="articleContent"> </p>
+    <h2>Potential Error Codes</h2>
+    <p class="articleContent">See the descriptions of OpCodes SI and SU for more information on the potential error codes.</p>
+</article>

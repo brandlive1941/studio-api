@@ -1,0 +1,95 @@
+<article>
+    <h1>BannerAd Node</h1>
+    <h2>BannerAd Node</h2>
+    <p class="articleContent">This node contains banner ad definitions. These nodes are contained within a BannerAds container node.</p>
+    <p class="articleContent"><strong>Example:</strong></p>
+    <p class="articleContent">&lt;BannerAd DisplayOrder="0" Title="Featured Speaker Spot" ExternalID="" FromDateTime="2007-01-01 08:00:00" ToDateTime="2007-12-31 18:00:00" Active="1" /&gt;</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call :https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50565&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;ShowKey={ShowKey}&amp;InfoTypeFilter={filter code list, in |OPTION|OPTION| format…}</p>
+    <p class="articleContent"><strong>Note:</strong> The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50565. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Attribute</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">DisplayOrder</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">The display order that controls the display of this ad within the stack.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Title</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">The title of the banner ad.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">String</p>
+                </td>
+                <td>
+                    <p class="articleContent">External ID for this banner ad.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">FromDateTime</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date</p>
+                </td>
+                <td>
+                    <p class="articleContent">Effective starting display date and time for this ad.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ToDateTime</p>
+                </td>
+                <td>
+                    <p class="articleContent">Date</p>
+                </td>
+                <td>
+                    <p class="articleContent">Effective ending display date and time for this ad.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Active</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether this ad is active.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

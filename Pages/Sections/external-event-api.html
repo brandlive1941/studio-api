@@ -1,0 +1,584 @@
+<article>
+    <h1>External Event API</h1>
+    <h2>External Event API</h2>
+    <p class="articleContent">Notified provides a portal to virtual event integration features that enable partners and show hosts to programmatically interact with the Event features of the Virtual Trade Show (VTS) platform on-demand from their controlled sites and systems.</p>
+    <p class="articleContent">
+        <br />
+        The Notified Virtual Trade Show External API also provides third-party partners the ability to programmatically automate the creation and synchronization of shared entities and attributes between their systems and the VTS database. This automation is controlled and orchestrated by the caller. The VTS platform does not currently push calls to third-party systems.
+    </p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation (except for file uploading which requires a multi-part form post). Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: </p>
+    <p class="articleContent">
+        <a href="https://nam12.safelinks.protection.outlook.com/?url=https%3A%2F%2Fapi.onlinexperiences.com%2Fscripts%2FServer.nxp%3FLASCmd%3DAI%3A4%3BF%3AAPIUTILS!50566&amp;data=04%7C01%7Cstacie.benton%40notified.com%7Ccb24aa15aaf542f9291b08d9e29340ef%7Cf6156a017c5b4c82b9ba5750c109536e%7C0%7C0%7C637789944346831490%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=alufAV%2F18IH%2F0mbS0BQm3IRogXKEAyx%2F1LpHeAnGlK8%3D&amp;reserved=0">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50566</a><br />
+        &amp;APIUserAuthCode={YourAuthCode}<br />
+        &amp;APIUserCredentials={YourCredentials}<br />
+        &amp;ShowKey={ShowKey}<br />
+        &amp;FromDateTime={FromDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ToDateTime={ToDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ActivityTypeFilter={filter code list, in |OPTION|OPTION| format…}<br />
+        &amp;FilterUserType={0|1|-1 where 0 = attendees, 1 = exhibitors, -1 = both}
+    </p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50540. All other parameters may appear in any sequence order.</p>
+    <h2>OpCodes</h2>
+    <p class="articleContent">API operations to be performed are specified in the OpCode parameter. More than one opcode may be specified, allowing the caller to perform multiple steps for each event. An exception to this is when uploading file attachments (opcodes EAI, EAU, EAC). File uploads must be invoked in a single, separate call. Opcodes are evaluated in order from left to right. Each opcode may require a different set of parameters to be supplied. Parameter values may be shared among multiple opcodes. Following is a list of valid opcodes supported by the API:</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">OpCode</p>
+                </th>
+                <th>
+                    <p class="articleContent">Description</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">Event Grouping</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EGL</p>
+                </td>
+                <td>
+                    <p class="articleContent">Lists the defined Event Groupings.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EGI</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add a new Event Grouping.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EGU</p>
+                </td>
+                <td>
+                    <p class="articleContent">Update an Event Grouping.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EGD</p>
+                </td>
+                <td>
+                    <p class="articleContent">Delete an Event Grouping (and all associated events).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EGC</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add or update an Event Grouping</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Event Speaker</p>
+                </td>
+                <td>
+                    <p class="articleContent"> </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ESL</p>
+                </td>
+                <td>
+                    <p class="articleContent">Lists the defined Event Speakers.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ESI</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add a new Event Speaker.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ESU</p>
+                </td>
+                <td>
+                    <p class="articleContent">Update an Event Speaker.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ESD</p>
+                </td>
+                <td>
+                    <p class="articleContent">Delete an Event Speaker.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ESC</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add or update an Event Speaker.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Event Tracks</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ETL</p>
+                </td>
+                <td>
+                    <p class="articleContent">List the defined Event Tracks.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ETI</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add a new Event Track.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ETU</p>
+                </td>
+                <td>
+                    <p class="articleContent">Update an Event Track.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ETD</p>
+                </td>
+                <td>
+                    <p class="articleContent">Delete an Event Track.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ETC</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add or update an Event Track.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ETM</p>
+                </td>
+                <td>
+                    <p class="articleContent">List the Event Track’s event members.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ETA</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add an event to the Event Track.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ETR</p>
+                </td>
+                <td>
+                    <p class="articleContent">Remove an event from the Event Track.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Event Moderators/Staff</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EML</p>
+                </td>
+                <td>
+                    <p class="articleContent">List moderators and staff for an event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EMI</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add a moderator or staffer to an event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EMU</p>
+                </td>
+                <td>
+                    <p class="articleContent">Update a moderator or staffer assigned to an event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EMD</p>
+                </td>
+                <td>
+                    <p class="articleContent">Delete a moderator or staffer from an event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EMC</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add or update a moderator or staffer to an event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Event Dates</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EDL</p>
+                </td>
+                <td>
+                    <p class="articleContent">List the defined Event Dates for an event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EDI</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add an Event Date to the event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EDU</p>
+                </td>
+                <td>
+                    <p class="articleContent">Update an Event Date for an event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EDD</p>
+                </td>
+                <td>
+                    <p class="articleContent">Delete an Event Date from an event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EDC</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add or update an Event Date to an event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Events</p>
+                </td>
+                <td>
+                    <p class="articleContent"> </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EEL</p>
+                </td>
+                <td>
+                    <p class="articleContent">List the Events for a show.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EEI</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add an Event to a show.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EEU</p>
+                </td>
+                <td>
+                    <p class="articleContent">Update an Event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EED</p>
+                </td>
+                <td>
+                    <p class="articleContent">Delete an Event from a Show.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EEC</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add or update an Event to a show.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EEX</p>
+                </td>
+                <td>
+                    <p class="articleContent">Retrieve Event extra data (UDF values).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Event Attachments (documents/links)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EAL</p>
+                </td>
+                <td>
+                    <p class="articleContent">List the Attachments for an event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EAI</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add an Attachment to an event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EAU</p>
+                </td>
+                <td>
+                    <p class="articleContent">Update an Attachment.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EAD</p>
+                </td>
+                <td>
+                    <p class="articleContent">Delete an Attachment from an event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EAC</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add or update an Attachment to an event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Event Questions and Answers</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EQL</p>
+                </td>
+                <td>
+                    <p class="articleContent">Event Question and Answer List</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Miscellaneous</p>
+                </td>
+                <td>
+                    <p class="articleContent"> </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SCL</p>
+                </td>
+                <td>
+                    <p class="articleContent">List the defined Subject Categories for a show.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SCI</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add a Subject Category to a show.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EPL</p>
+                </td>
+                <td>
+                    <p class="articleContent">List the allowed Event Provider Types for a show.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CTL</p>
+                </td>
+                <td>
+                    <p class="articleContent">List the Categories available.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EVA</p>
+                </td>
+                <td>
+                    <p class="articleContent">Adds an attendee visit record for an Event.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ERL</p>
+                </td>
+                <td>
+                    <p class="articleContent">List the defined Presenter Role Macros for this tenant.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EGI</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add a new Event Grouping.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EGU</p>
+                </td>
+                <td>
+                    <p class="articleContent">Update an Event Grouping.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EGD</p>
+                </td>
+                <td>
+                    <p class="articleContent">Delete an Event Grouping (and all associated events).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EGC</p>
+                </td>
+                <td>
+                    <p class="articleContent">Add or update an Event Grouping</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Event Speaker</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ESL</p>
+                </td>
+                <td>
+                    <p class="articleContent">Lists the defined Event Speakers.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent">The specific parameters accepted and return output for each opcode are documented individually, including potential errors that may occur specific to each opcode.</p>
+    <p class="articleContent"> </p>
+    <h2>Example API Call</h2>
+    <p class="articleContent">The following example call retrieves the list of events currently defined for the show with the ShowKey of 99347: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50540&amp;APIUserAuthCode=JX11452B&amp;APIUserCredentials=DEMO01&amp;OpCodeList=EEL&amp;OutputFormat=X&amp;ShowKey=99347</p>
+    <p class="articleContent">Before the API begins processing opcodes, certain credential and parameter validations are made. If any of these top-level validations fail, none of the opcodes will be processed. Below is a listing of potential top-level validation errors:</p>
+    <p class="articleContent"> </p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">Error</p>
+                </td>
+                <td>
+                    <p class="articleContent">Message</p>
+                </td>
+                <td>
+                    <p class="articleContent">Reason</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid API Credentials Supplied!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The credentials supplied do not match any authorized API accounts.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">API Access Has Been Deactivated!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The specified API account is marked inactive.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Show Key Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ShowKey parameter does not match any valid shows for this account.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Or Missing OpCode(s) Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">Either the OpCode parameter is empty or missing.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">-10</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid OpCode Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The specified OpCode is invalid.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><h2>Retrieving Results from the API</h2>
+    <p class="articleContent"> </p>
+    <p class="articleContent">The API can return results in several formats, allowing the developer to choose what is most easily consumed. The formats are text-based, HTTP URL-encoded, and XML. Results contain a header, indicating the overall success of the call, including textual diagnostic, the number of opcodes successfully processed, and the number of opcodes that resulted in an error. Each opcode then outputs a recap section of its execution, indicating the opcode, processing result, and textual diagnostic. Error codes of 0 indicate success (no error).</p>
+    <p class="articleContent">In addition to the opcode recap, data elements are output for certain opcodes indicating the return values of the operation. The format of the results depends on the result format requested. For URL-encoded, these are listed as a string of HTTP parameter names and values. For text, they are listed as a header line, followed by a values line, each field separated by commas. For XML, they are listed as child nodes of the opcode response. Example output is included for each opcode in the respective opcode’s documentation.</p>
+</article>

@@ -1,0 +1,195 @@
+<article>
+    <h1>OpCode UGI: Create A UDF Group</h1>
+    <h2>OpCode UGI: Create A UDF Group</h2>
+    <p class="articleContent">This opcode is used to create a UDF Group in the VTS system. If a group with the same description already exists in this tenant for this source, an error is returned.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50507&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={J|X|H|T(default)} &amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50507. All other parameters may appear in any sequence.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 20</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include UGI to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, X for XML, J for JSON. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Source</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Pass one (1) for attendee, two (2) for documents, three (3) for exhibitor, four (4) for booth, five (5) for show, seven (7) for event/presentation.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFGroupDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 40</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The unique description for this group.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UDFGroupDisplayOrder</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The display order of this group.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><h2>Return Outputs</h2>
+    <p class="articleContent">This API returns the VTS UDF Group Key.</p>
+    <p class="articleContent"> </p>
+    <h2>Text</h2>
+    <pre><code>
+    ### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0
+    ## OpCode=UGI Status=0 Message=OK
+    UDFGroupKey
+    123456
+    </code></pre>
+    <h2>HTTP Urlencoded</h2>
+    <pre><code>
+    APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp;OpCodesInError=0&amp;OpCode=UGI&amp;Status=0&amp;Message=OK&amp;UDFGroupKey=123456
+    </code></pre>
+    <h2>XML</h2>
+    <pre><code>
+    &lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError="0" &gt;
+    &lt;OpCodeResult OpCode="UGI" Status="0" Message="OK" &gt;
+     &lt;ResultRow&gt;
+      &lt;UDFGroupKey&gt;123456&lt;/UDFGroupKey&gt;
+     &lt;/ResultRow&gt;
+    &lt;/OpCodeResult&gt;
+    &lt;/APIResults&gt;
+    </code></pre>
+    <h2>JSON</h2>
+    <pre><code>
+    {"APIResults":{"APICallResult":"0","APICallDiagnostic":"OK","OpCodesProcessed":"1","OpCodesInError":"0","OpCodeResults":[{"OpCode":"UGI","Status":"0","Message":"OK","Results":[{"UDFGroupKey":123456}]}]}}
+    </code></pre>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Error</p>
+                </th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">10</p>
+                </td>
+                <td>
+                    <p class="articleContent">Description is blank!</p>
+                </td>
+                <td>
+                    <p class="articleContent">UDFGroupDescription is a required field and must contain a value.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">11</p>
+                </td>
+                <td>
+                    <p class="articleContent">Description already exists!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The value passed in UDFGroupDescription already exists and is associated with another UDF Group.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

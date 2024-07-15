@@ -1,0 +1,553 @@
+<article>
+    <h1>Job Posting Opcode JPC: Create or Update a Job Posting</h1>
+    <h2>Job Posting Opcode JPC: Create or Update a Job Posting</h2>
+    <p class="articleContent">This opcode is used to update a Job Posting entry in the specified show, if it exists, or create a new one if it does not. The Job Posting item is identified using either the Job Title or the ExternalID, in combination with the Exhibitor values. If the Job Posting is found using the title or external ID, the Update A Job Posting API is called (OpCode JPU). Otherwise, the Add A Job Posting API is called (OpCode JPI).</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50560&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;ShowKey={ShowKey}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50560. All other parameters may appear in any sequence order.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 20</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include JPC to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ShowKey to insert the Job Posting into.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">ExhibitorKey to create the Job Posting for. If this is not supplied, then ExhibitorName or ExhibitorExternalID must be specified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorName</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Exhibitor Name to create the Job Posting for.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ExhibitorExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Exhibitor ExternalID to create the Job Posting for.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">BoothKey to create the Job Posting for.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothName</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 128</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Booth Name to create the Job Posting for.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Booth ExternalID to create the Job Posting for.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCategoryKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">JobCategoryKey to create the Job Posting under. If this is not supplied, then JobCategoryDescription or JobCategoryExternalID must be specified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCategoryDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Job Category Description to create the Job Posting under.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCategoryExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Job Category ExternalID to create the Job Posting under.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobTitle</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 100</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The title of this Job Posting.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Job Code, if any.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Active</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether this Job Posting is active.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2GB</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Description of this Job.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">IsTravelRequired</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 40</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Description of travel requirements.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CanTelecommute</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether hires can telecommute.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AllowJobRating</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether viewers can rate this job posting.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">WillSponsorH1B</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether the employer will sponsor H1B applicants.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">HideJobContact</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether the Job Contact person will be hidden from the job posting.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">RequiresCitizenship</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer (1, 2, 3)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Specify 1 for citizen (default), 2 for a permanent resident, or 3 for not required.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Salary</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 30</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Salary description.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobType</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer (1, 2, 3)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Specify 1 for full-time (default), 2 for part-time, or 3 for contract.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobLevel</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 30</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Job Level description.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Experience</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 30</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Description of experience requirements.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Education</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 30</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Description of education requirements.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JobLocation</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Location of job.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ConfirmationFromShowUserKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Show User Key identifies the user in the system that is the Job Contact.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ConfirmationFromShowUserEMailAddress</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The email address that identifies the user in the system is the Job Contact.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ConfirmationFromShowUserExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">External ID that identifies the user in the system that is the Job Contact.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ConfirmationType</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer (0, 1, 2)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Specify 0 for no confirmation (default), 1 for send vCard, or 2 for send in-show email.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ConfirmationOption</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer (0, 1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Specify 0 for none (default) or 1 for send applicant confirmation contact’s vCard.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CustomApplicantMessagePage</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2GB</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Message text to be sent to applicants as part of the confirmation.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">HideApplyButton</p>
+                </td>
+                <td>
+                    <p class="articleContent">Bit (0/1)</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Flag indicating whether to hide the Apply button for this job.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">See the descriptions of OpCodes JPI and JPU for more information on the return completion results.</p>
+    <p class="articleContent"> </p>
+    <h2>Potential Error Codes</h2>
+    <p class="articleContent">See the descriptions of OpCodes JPI and JPU for more information on the potential error codes.</p>
+</article>

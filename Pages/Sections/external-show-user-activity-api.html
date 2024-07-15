@@ -1,0 +1,417 @@
+<article>
+    <h1>External Show User Activity API</h1>
+    <h2>External Show User Activity API</h2>
+    <p class="articleContent">Notified provides a portal to virtual event integration features that enables partners and show hosts to programmatically query show user activity tracked in the Virtual Trade Show (VTS) platform, on-demand from their controlled sites and systems.</p>
+    <p class="articleContent">The Notified Virtual Trade Show External API also provides third-party partners the ability to programmatically automate the creation and synchronization of shared entities and attributes between their systems and the VTS database. This automation is controlled and orchestrated by the caller. The VTS platform does not currently push calls to third-party systems.</p>
+    <p class="articleContent"> </p>
+    <h2>Calling The API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is:</p>
+    <p class="articleContent">
+        <a href="https://nam12.safelinks.protection.outlook.com/?url=https%3A%2F%2Fapi.onlinexperiences.com%2Fscripts%2FServer.nxp%3FLASCmd%3DAI%3A4%3BF%3AAPIUTILS!50566&amp;data=04%7C01%7Cstacie.benton%40notified.com%7C3f7d8d316b0c468e8ccb08d9e28782bd%7Cf6156a017c5b4c82b9ba5750c109536e%7C0%7C0%7C637789893922058643%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=G%2FRGmm0n1D4CkqotvJ7iZ0Z10WssiXn3P63ORLA4RQI%3D&amp;reserved=0">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50566</a><br />
+        &amp;APIUserAuthCode={YourAuthCode}<br />
+        &amp;APIUserCredentials={YourCredentials}<br />
+        &amp;ShowKey={ShowKey}<br />
+        &amp;FromDateTime={FromDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ToDateTime={ToDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ActivityTypeFilter={filter code list, in |OPTION|OPTION| format…}<br />
+        &amp;FilterUserType={0|1|-1 where 0 = attendees, 1 = exhibitors, -1 = both}
+    </p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50566. All other parameters may appear in any sequence order.</p>
+    <p class="articleContent"> </p>
+    <h2>Recent Activity Filtering</h2>
+    <p class="articleContent">This API supports limiting the results to only those activities that occurred after a specified date and time. To limit results, pass a date/time value in the FromDate parameter and/or ToDate parameter in YYYY-MM-DD HH:MM:SS format.</p>
+    <p class="articleContent"> </p>
+    <h2>Activity Type Filter Code List</h2>
+    <p class="articleContent">This API supports limiting the results returned to a specific type or category, based on the ActivityTypeFilter string specified in the call. The filter codes are specified in a pipe-delimited string format (|FT|TT|XX|). If this parameter is omitted, the API defaults to ALL. Following is a list of valid opcodes supported by the API:</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Filter Code</p>
+                </th>
+                <th>
+                    <p class="articleContent">Description</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">ALL</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns all categories of information. If used, this should be the only ActivityTypeFilter code specified (ex: &amp;ActivityTypeFilter=ALL).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BV</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the booth visit activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BTV</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the booth tab visit activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EV</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the events/presentations visit activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">DA</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the document/link activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CV</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the group chat room visits.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SL</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the show login activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SF</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the show floor visit activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SS</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the show search activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">UM</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the user matching activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">IV</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the invite a friend activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BA</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the banner ad click activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JA</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the job application activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">JV</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the job posting view activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BGP</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the blog posting activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BGV</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the blog posting view activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BGC</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the blog posting comment activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">PL</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the Post Show Portal (DataPortal) login activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EPV</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the exhibitor profile view activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AA</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the announcement activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">GE</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the giveaway entries.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BRA</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns booth rating activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ERA</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns event rating activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">FPA</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns forgot password activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">GPA</p>
+                </td>
+                <td>
+                    <p class="articleContent">Game Play activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CCR</p>
+                </td>
+                <td>
+                    <p class="articleContent">Communication Center Recap.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">PCE</p>
+                </td>
+                <td>
+                    <p class="articleContent">Private Chats Engaged.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">PCM</p>
+                </td>
+                <td>
+                    <p class="articleContent">Private Chats Missed.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SMA</p>
+                </td>
+                <td>
+                    <p class="articleContent">Social Media activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ESR</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the event/presentation survey response activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BDG</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns badges currently held by the user.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">MDA</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns media download activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CTS</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns Course Test summary activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">CER</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns Certificates awarded.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EVR</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns the events/presentations Evite responses.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EAV</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns presentation Attendance Verification activity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EQ</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns presentation questions asked.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">EQA</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns presentation questions asked and answers to those questions, if any.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">SSR</p>
+                </td>
+                <td>
+                    <p class="articleContent">Returns show survey responses.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><h2> </h2>
+    <h2>Example API Call</h2>
+    <p class="articleContent">The following example call retrieves the list of booth visits and show logins for the show with the ShowKey of 99347:</p>
+    <p class="articleContent">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50566&amp;APIUserAuthCode=JX11452B&amp;APIUserCredentials=DEMO01&amp;ShowKey=99347&amp;ActivityTypeFilter=|SL|BV|</p>
+    <p class="articleContent">Before the API begins processing the request, certain credential and parameter validations are made. If any of these top-level validations fail, an error will be returned. Below is a listing of potential top-level validation errors:</p>
+    <p class="articleContent"> </p>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Error</p>
+                </th>
+                <th>
+                    <p class="articleContent">Message</p>
+                </th>
+                <th>
+                    <p class="articleContent">Reason</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid API Credentials Supplied!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The credentials supplied do not match any authorized API accounts.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">API Access Has Been Deactivated!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The specified API account is marked inactive.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">50000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Show Key Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ShowKey parameter does not match any valid shows for this account.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent">The format of an error return is:</p>
+    <p class="articleContent">&lt;?xml version="1.0" encoding="utf-8"?&gt;</p>
+    <p class="articleContent">&lt;CallFailed Status="{ErrorCode}" Diag="{ErrorDescription}" /&gt;</p>
+    <p class="articleContent"> </p>
+    <h2>Retrieving Results From The API</h2>
+    <p class="articleContent">The API returns results in XML format by default. JSON format is also supported by adding “OutputFormat=J” to the call.  The response is encoded in UTF-8 format. Attributes are used to convey values for nodes. In cases where there can be multiple nodes of a given type, a container node is used with the plural name of the contained node.</p>
+    <p class="articleContent">As many of the attributes contain date/time values, it is important to note that all dates and times are in Central Standard Time (CST [GMT-6]). Also, all dates are returned in the ODBC standard format of YYYY-MM-DD HH:MM:SS. Following is documentation of each node and its attributes.</p>
+    <p class="articleContent">Returned activity data is grouped under the ShowUser node that the activity relates to.</p>
+</article>

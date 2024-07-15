@@ -1,0 +1,330 @@
+<article>
+    <h1>Booth Documents/Links OpCode DU: Update Booth Document/Link</h1>
+    <h2>Booth Documents/Links OpCode DU: Update Booth Document/Link</h2>
+    <p class="articleContent">This opcode is used to update a document/link for the specified Booth. The Booth to update the document may be identified via the BoothKey, BoothExternalID, or BoothTitle parameters. The attachment to update may be identified by specifying the BoothAttachmentKey or through the Attachment parameter (for URLs, this is the actual value, while for file uploads, this is the filename).</p>
+    <p class="articleContent">
+        Document/Link attachments can be links (URLs) or actual files uploaded to the system. When updating URL links, no special treatment is necessary. However, when uploading files, certain steps must be taken. File uploads must be the only opcode specified in the OpCodeList. This means that uploading files must be done as separate calls to the API. Additionally, uploading of files must be done using HTTPS multipart form posts.<br />
+    </p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">API Parameter</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Req.</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserAuthCode</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API authorization code as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">APIUserCredentials</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 80</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Your API user credentials as supplied by Notified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OpCodeList</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2000</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">Should include DL to invoke this function.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">OutputFormat</p>
+                </td>
+                <td>
+                    <p class="articleContent">Char 1</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">T for text, H for HTTP URL-encoded, or X for XML. Defaults to T.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">ShowKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Show Key that the booth exists in.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The key value identifying the booth to retrieve.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothExternalID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 255</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">External ID or code to cross-reference this booth entry.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothTitle</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 128</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Title for this booth.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">BoothAttachmentKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">The Attachment Key value to update.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AttachmentDescription</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 800</p>
+                </td>
+                <td>
+                    <p class="articleContent">Y</p>
+                </td>
+                <td>
+                    <p class="articleContent">The description of this attachment.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Attachment</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2000</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">If the attachment is a link, rather than a file upload, then this contains the URL. Otherwise, this parameter should be omitted.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AttachmentData</p>
+                </td>
+                <td>
+                    <p class="articleContent">Binary blob</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">If the attachment is a file upload, then this parameter contains the actual document contents. Otherwise, this parameter can be omitted.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AttachmentCategory</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Category for this attachment. (See OpCode CTL)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AttachmentSubjectCategoryKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Subject Category of this attachment. (See OpCode SCL)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">AttachmentDisplayOrder</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">N</p>
+                </td>
+                <td>
+                    <p class="articleContent">Display order index to be used when listing attachments.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table><h2>Return Outputs</h2>
+    <p class="articleContent">This API returns the status message OK and the new AttachmentKey upon successful completion.</p>
+    <p class="articleContent"> </p>
+    <h2>Text</h2>
+    <p class="articleContent">### APICallResult=0 APICallDiagnostic=OK OpCodesProcessed=1 OpCodesInError=0</p>
+    <p class="articleContent">## OpCode=DU Status=0 Message=OK</p>
+    <p class="articleContent">AttachmentKey</p>
+    <p class="articleContent">123456</p>
+    <p class="articleContent"> </p>
+    <h2>HTTP URL-encoded</h2>
+    <p class="articleContent">APICallResult=0&amp;APICallDiagnostic=OK&amp;OpCodesProcessed=1&amp; OpCodesInError=0&amp;OpCode=DU&amp;Status=0&amp;Message=OK&amp;AttachmentKey=123456</p>
+    <p class="articleContent"> </p>
+    <h2>XML</h2>
+    <p class="articleContent">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</p>
+    <p class="articleContent">&lt;APIResults APICallResult="0" APICallDiagnostic="OK" OpCodesProcessed="1" OpCodesInError=”0” &gt;</p>
+    <p class="articleContent">&lt;OpCodeResult OpCode="DU" Status="0" Message="OK" &gt;</p>
+    <p class="articleContent"> &lt;ResultRow&gt;</p>
+    <p class="articleContent">  &lt;AttachmentKey&gt;123456&lt;/AttachmentKey&gt;</p>
+    <p class="articleContent"> &lt;/ResultRow&gt;</p>
+    <p class="articleContent">&lt;/OpCodeResult&gt;</p>
+    <p class="articleContent">&lt;/APIResults&gt;</p>
+    <p class="articleContent"> </p>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">Error</p>
+                </td>
+                <td>
+                    <p class="articleContent">Message</p>
+                </td>
+                <td>
+                    <p class="articleContent">Reason</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">801</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid ShowKey Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The ShowKey parameter value specified is invalid.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">802</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Booth Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The booth to retrieve data could not be located based on the value passed for BoothKey, BoothExternalID, and BoothTitle.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">803</p>
+                </td>
+                <td>
+                    <p class="articleContent">Attachment Must Have A Filename or Description!</p>
+                </td>
+                <td>
+                    <p class="articleContent">At least one of these values must be specified.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">804</p>
+                </td>
+                <td>
+                    <p class="articleContent">Invalid Subject Category Specified!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The AttachmentSubjectCategoryKey was specified and is invalid.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">805</p>
+                </td>
+                <td>
+                    <p class="articleContent">Attachment Not Found!</p>
+                </td>
+                <td>
+                    <p class="articleContent">The attachment entry to update was not found based on values provided in BoothAttachmentKey and Attachment parameters.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</article>

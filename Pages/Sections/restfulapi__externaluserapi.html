@@ -1,0 +1,179 @@
+<article>
+<h1>External User API</h1>
+<h2>External User API</h2>
+<p class="articleContent">Notified provides a portal to virtual event integration feature that enables partners and show hosts to launch the Virtual Trade Show (VTS)platform on-demand using single sign-on and password controls through their controlled sites and systems. The visitor only needs to log in once at the host site. Their login information is then automatically sent to the virtual event.</p>
+<p class="articleContent">Several different VTS modules may be launched, including the Show module, the Remote Profile Update, the Booth Builder, and the Show Data Portal. This allows partners to fully integrate the VTS platform as a module of their site systems.</p>
+<p class="articleContent">The Notified Virtual Trade Show External API also provides third-party partners the ability to programmatically automate the creation and synchronization of shared users and user attributes between their systems and the VTS database. This automation is controlled and orchestrated by the caller. The VTS platform does not currently push calls to third-party systems.</p>
+<h2>Calling The API</h2>
+<p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+<p class="articleContent">The format of the call is: </p>
+<p class="articleContent">
+<a href="https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50566">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50566</a><br/>
+        &amp;APIUserAuthCode={YourAuthCode}<br/>
+        &amp;APIUserCredentials={YourCredentials}<br/>
+        &amp;ShowKey={ShowKey}<br/>
+        &amp;FromDateTime={FromDate in YYYY-MM-DD HH:MM:SS format}<br/>
+        &amp;ToDateTime={ToDate in YYYY-MM-DD HH:MM:SS format}<br/>
+        &amp;ActivityTypeFilter={filter code list, in |OPTION|OPTION| format…}<br/>
+        &amp;FilterUserType={0|1|-1 where 0 = attendees, 1 = exhibitors, -1 = both}
+    </p>
+<p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+<p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50500. All other parameters may appear in any sequence.</p>
+<h2>OpCodes</h2>
+<p class="articleContent"> API operations to be performed are specified in the OpCode parameter. More than one opcode may be specified, allowing the caller to perform multiple steps for each person. Opcodes are evaluated in order from left to right. Each opcode requires a different set of parameters to be supplied. Parameter values may be shared among multiple opcodes. Following is a list of valid opcodes supported by the API: </p>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr>
+<th>OpCode</th>
+<th>
+<p class="articleContent">Description</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I </td>
+<td>Insert a new Show User.</td>
+</tr>
+<tr>
+<td>U</td>
+<td>Update an existing Show User.</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Update Show User, automatically creating them if they do not exist.</td>
+</tr>
+<tr>
+<td>D</td>
+<td>Delete a Show User.</td>
+</tr>
+<tr>
+<td>E</td>
+<td>Check if a Show User exists in the system.</td>
+</tr>
+<tr>
+<td>G</td>
+<td>Retrieve a Show User’s profile information.</td>
+</tr>
+<tr>
+<td>R</td>
+<td>Register a Show User for a show with a specific Show Package.</td>
+</tr>
+<tr>
+<td>r</td>
+<td>Register a Show User for a show with a specific Show Package, updating any existing registration information.</td>
+</tr>
+<tr>
+<td>K</td>
+<td>Get User Registration Package information.</td>
+</tr>
+<tr>
+<td>A</td>
+<td>Get User Registration Add-On information.</td>
+</tr>
+<tr>
+<td>F</td>
+<td>Retrieve the list of available shows.</td>
+</tr>
+<tr>
+<td>T</td>
+<td>Create a Login Ticket token that is valid for one (1) minute, allowing for redirected logins without sending API credentials to the client browser.</td>
+</tr>
+<tr>
+<td>V</td>
+<td>Add credential badges to the given user.</td>
+</tr>
+<tr>
+<td>O</td>
+<td>Remove credential badges from the given user.</td>
+</tr>
+<tr>
+<td>W</td>
+<td>Set credential badges to a specified list of badges for the given user.</td>
+</tr>
+<tr>
+<td>M</td>
+<td>Add a list of AddOn item keys to the registration for the given user.</td>
+</tr>
+<tr>
+<td>N</td>
+<td>Remove a list of AddOn item keys from the registration for the given user.</td>
+</tr>
+<tr>
+<td>H</td>
+<td>Retrieve the list of Attendee Types.</td>
+</tr>
+<tr>
+<td>J</td>
+<td>Add an Attendee Type.</td>
+</tr>
+<tr>
+<td>@</td>
+<td>Forget User (EU Compliance).</td>
+</tr>
+<tr>
+<td>X</td>
+<td>Retrieve the External API failure log.</td>
+</tr>
+</tbody>
+</table>
+<h2>Example API Call</h2>
+<p class="articleContent">The following example call retrieves the profile information for the person with an external id of 99347:</p>
+<p class="articleContent">https://api.onlinexperience.com/scripts/Server.nxp?LASCm d=AI:4;F:APIUTILS!50500&amp;APIUserAuthCode=JX11452B&amp;APIUserCredentials=DEMO01&amp;OpCodeList=G&amp;OutputFormat=X&amp;LookupByExternalUserID1&amp;ExternalUserID=99347</p>
+<p class="articleContent">Before the API begins processing opcodes, certain credential and parameter validations are made. If any of these top-level validations fail, none of the opcodes will be processed. Below is a listing of potential top-level validation errors:</p>
+<table border="1" cellpadding="1" cellspacing="1">
+<thead>
+<tr>
+<th>Error</th>
+<th>Message</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>50000</td>
+<td>Invalid API Credentials</td>
+<td>The credentials supplied do not match any authorized API accounts</td>
+</tr>
+<tr>
+<td>50000</td>
+<td>API Access Has been Deactivated!</td>
+<td>The specified API account is marked inactive.</td>
+</tr>
+<tr>
+<td>50000</td>
+<td>Invalid Show Key Specified!</td>
+<td>The ShowKey parameter does not match any valid shows for this account.</td>
+</tr>
+<tr>
+<td>50000</td>
+<td>Empty Or Missing OpCode(s) Specified!</td>
+<td>Either the OpCode parameter is empty or missing. </td>
+</tr>
+<tr>
+<td>50000</td>
+<td>Empty or Missing ShowKey For OpCodes Specified!</td>
+<td>One of the Opcodes requires a valid ShowKey parameter and ShowKey was not supplied. </td>
+</tr>
+<tr>
+<td>50000</td>
+<td>Invalid or Missing Show Package Key For Registration OpCode@</td>
+<td>The Registration OpCode was specified, but the ShowPackageKey is missing or invalid.</td>
+</tr>
+<tr>
+<td>50000</td>
+<td>Show Package Not Available!</td>
+<td>The Registration Opcode was specified, but the show package by ShowPackageKey is not available or has expired. </td>
+</tr>
+<tr>
+<td>-10</td>
+<td>Invalid Opcode Specified!</td>
+<td>The specified Opcode is invalid.</td>
+</tr>
+</tbody>
+</table>
+<h2>Retrieving Results from the API</h2>
+<p class="articleContent">The API can return results in several formats, allowing the developer to choose what is most easily consumed. The formats are text-based, HTTP URL-encoded, and XML. Results contain a header, indicating the overall success of the call, including textual diagnostic, the number of opcodes successfully processed, and the number of opcodes that resulted in an error. Each opcode then outputs a recap section of its execution, indicating the opcode, processing result, and textual diagnostic. Error codes of zero (0) indicate success (no error).</p>
+<p class="articleContent"> </p>
+<p class="articleContent">In addition to the opcode recap, data elements are output for each opcode indicating the return values of the operation. The format of the results depends on the result format requested. For URL-encoded, these are listed as a string of HTTP parameter names and values. For text, they are listed as a header line, followed by a values line, each field separated by commas. For XML, they are listed as child nodes of the opcode response. Example output is included for each opcode in the respective opcode’s documentation.</p>
+</article>

@@ -1,0 +1,431 @@
+<article>
+    <h1>External Registration Activity API</h1>
+    <h2>External Registration Activity API</h2>
+    <p class="articleContent">Notified provides a portal to virtual event integration features that enables partners and show hosts to programmatically query show registration activity tracked in the Virtual Trade Show (VTS) platform, on-demand from their controlled sites and systems.</p>
+    <p class="articleContent">The Notified Virtual Trade Show External API also provides third-party partners the ability to programmatically automate the creation and synchronization of shared entities and attributes between their systems and the VTS database. This automation is controlled and orchestrated by the caller. The VTS platform does not currently push calls to third-party systems.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is: </p>
+    <p class="articleContent">
+        <a href="https://nam12.safelinks.protection.outlook.com/?url=https%3A%2F%2Fapi.onlinexperiences.com%2Fscripts%2FServer.nxp%3FLASCmd%3DAI%3A4%3BF%3AAPIUTILS!50566&amp;data=04%7C01%7Cstacie.benton%40notified.com%7Ccb24aa15aaf542f9291b08d9e29340ef%7Cf6156a017c5b4c82b9ba5750c109536e%7C0%7C0%7C637789944346831490%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000&amp;sdata=alufAV%2F18IH%2F0mbS0BQm3IRogXKEAyx%2F1LpHeAnGlK8%3D&amp;reserved=0">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50566</a><br />
+        &amp;APIUserAuthCode={YourAuthCode}<br />
+        &amp;APIUserCredentials={YourCredentials}<br />
+        &amp;ShowKey={ShowKey}<br />
+        &amp;FromDateTime={FromDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ToDateTime={ToDate in YYYY-MM-DD HH:MM:SS format}<br />
+        &amp;ActivityTypeFilter={filter code list, in |OPTION|OPTION| format…}<br />
+        &amp;FilterUserType={0|1|-1 where 0 = attendees, 1 = exhibitors, -1 = both}
+    </p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50567. All other parameters may appear in any sequence order.</p>
+    <h2>Recent Activity Filtering</h2>
+    <p class="articleContent">This API supports limiting the results to only those activities that occurred after a specified date and time. To limit results, pass a date/time value in the FromDateTime parameter and/or ToDateTime parameter in YYYY-MM-DD HH:MM:SS format.</p>
+    <h2>Parameter Options</h2>
+    <p class="articleContent">This API supports limiting the results returned to a specific subset as needed. The table below details the parameters that can be passed in addition to the required LASCmd, APIUserCredentials, APIUserAuthCode, and ShowKey parameters to filter and limit the results returned.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>Parameter</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>FromDateTime</td>
+                <td>Starting date/time to filter results based on date/time user registered.</td>
+            </tr>
+            <tr>
+                <td>ToDateTime</td>
+                <td>Ending date/time to filter results based on date/time user registered.</td>
+            </tr>
+            <tr>
+                <td>ProfileLevel</td>
+                <td>
+                    <p class="articleContent">Controls the amount of information returned regarding the user. Possible values are S and F. S indicates a summary level (default), while F indicates full profile information. The table below details the fields returned by the values for this parameter:</p>
+                    <table border="1" cellpadding="1" cellspacing="1">
+                        <thead>
+                            <tr>
+                                <th>Attribute</th>
+                                <th>ProfileLevel Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>EMailAddress</td>
+                                <td>S/F</td>
+                            </tr>
+                            <tr>
+                                <td>Name</td>
+                                <td>S/F</td>
+                            </tr>
+                            <tr>
+                                <td>CompanyName</td>
+                                <td>S/F</td>
+                            </tr>
+                            <tr>
+                                <td>ExternalID</td>
+                                <td>S/F</td>
+                            </tr>
+                            <tr>
+                                <td>IsTestUser</td>
+                                <td>S/F</td>
+                            </tr>
+                            <tr>
+                                <td>Phone1</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>Phone2</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>LoginID</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>TimeZoneInfoKey</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>Active</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>UserType</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>AttendeeType</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>Exhibitor</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>ExhibitorUserType</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>Address</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>City</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>StateProv</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>Country</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>PostalCode</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>JobTitle</td>
+                                <td>F</td>
+                            </tr>
+                            <tr>
+                                <td>LocaleID</td>
+                                <td>F</td>
+                            </tr>
+                        </tbody>
+                    </table><p class="articleContent"> </p>
+                </td>
+            </tr>
+            <tr>
+                <td>FilterUserType</td>
+                <td>The type of users to return registration information for, where 0 = Attendees, 1 = Sponsors/Exhibitors and -1 is both (default).</td>
+            </tr>
+            <tr>
+                <td>IncludePaymentDetail</td>
+                <td>Flag indicating whether to include payment data, When 0 or omitted, no payment data is returned (default). When 1, returns payment information about the registration.</td>
+            </tr>
+            <tr>
+                <td>IncludeUDFData</td>
+                <td>
+                    <p class="articleContent">
+                        Option to return extended profile information. Possible values are:<br />
+                        U – return UDF field values.<br />
+                        S – return Show Survey answers.<br />
+                        B – return both UDF field values and Show Survey answers.<br />
+                        N – do not return any extended information (default).
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>FromDateTime</td>
+                <td>Starting date/time to filter results based on date/time user registered.</td>
+            </tr>
+            <tr>
+                <td>ToDateTime</td>
+                <td>Ending date/time to filter results based on date/time user registered.</td>
+            </tr>
+        </tbody>
+    </table><h2> </h2>
+    <h2>Example API</h2>
+    <p class="articleContent">The following example call retrieves the list of registrants for the show with the ShowKey of 99347:</p>
+    <p class="articleContent">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50567&amp;APIUserAuthCode=JX11452B&amp;APIUserCredentials=DEMO01&amp;ShowKey=99347&amp;ProfileLevel=S</p>
+    <p class="articleContent">Before the API begins processing the request, certain credential and parameter validations are made. If any of these top-level validations fail, an error will be returned. Below is a listing of potential top-level validation errors:</p>
+    <h2> </h2>
+    <h2>Potential Error Codes</h2>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>Error</th>
+                <th>Message</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>50000</td>
+                <td>Invalid API Credentials Supplied!</td>
+                <td>The credentials supplied do not match any authorized API accounts.</td>
+            </tr>
+            <tr>
+                <td>50000</td>
+                <td>API Access Has Been Deactivated!</td>
+                <td>The specified API account is marked inactive.</td>
+            </tr>
+            <tr>
+                <td>50000</td>
+                <td>Invalid Show Key Specified!</td>
+                <td>The ShowKey parameter does not match any valid shows for this account.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <p class="articleContent">The format of an error return is detailed below:</p>
+    <p class="articleContent">&lt;?xml version="1.0" encoding="utf-8"?&gt;</p>
+    <p class="articleContent">&lt;CallFailed Status="{ErrorCode}" Diag="{ErrorDescription}" /&gt;</p>
+    <h2> </h2>
+    <h2>Retrieving Results from the API</h2>
+    <p class="articleContent">The API returns results in XML format. The response is encoded in UTF-8 format. Attributes are used to convey values for nodes.</p>
+    <p class="articleContent">As some of the attributes contain date/time values, it is important to note that all dates and times are in Central Standard Time (CST [GMT-6]). Also, all dates are returned in the ODBC standard format of YYYY-MM-DD HH:MM:SS. Following is documentation of each attribute for the nodes returned.</p>
+    <h2> </h2>
+    <h2>Registrant Node</h2>
+    <p class="articleContent">The API returns results in XML format. The response is encoded in UTF-8 format. Attributes are used to convey values for nodes.</p>
+    <p class="articleContent">As some of the attributes contain date/time values, it is important to note that all dates and times are in Central Standard Time (CST [GMT-6]). Also, all dates are returned in the ODBC standard format of YYYY-MM-DD HH:MM:SS. Following is documentation of each attribute for the nodes returned.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>Attribute</th>
+                <th>Type</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>ShowUserKey</td>
+                <td>Integer</td>
+                <td>The Notified show user key for this user.</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>String</td>
+                <td>Name of the user.</td>
+            </tr>
+            <tr>
+                <td>EmailAddress</td>
+                <td>String</td>
+                <td>Email address for this user.</td>
+            </tr>
+            <tr>
+                <td>CompanyName</td>
+                <td>String</td>
+                <td>Company Name for this user.</td>
+            </tr>
+            <tr>
+                <td>ExternalID</td>
+                <td>String</td>
+                <td>External ID for this user.</td>
+            </tr>
+            <tr>
+                <td>IsTestUser</td>
+                <td>Flag (0/1)</td>
+                <td>Flag indicating whether this is a test user.</td>
+            </tr>
+            <tr>
+                <td>RegDate</td>
+                <td>Date</td>
+                <td>Date when this user registered.</td>
+            </tr>
+            <tr>
+                <td>Package</td>
+                <td>String</td>
+                <td>Description of the package the user registered for.</td>
+            </tr>
+            <tr>
+                <td>PackageKey</td>
+                <td>Integer</td>
+                <td>Key-value of the package this user registered for.</td>
+            </tr>
+            <tr>
+                <td>IsUpgrade</td>
+                <td>Flag (0/1)</td>
+                <td>Flag indicating whether this registration is an initial registration (0) or an upgrade (1).</td>
+            </tr>
+            <tr>
+                <td>RegistrationOwner.</td>
+                <td>String</td>
+                <td>Owner data for this registration.</td>
+            </tr>
+            <tr>
+                <td>RegistrationSource</td>
+                <td>String</td>
+                <td>Text indicating where this registration originated from.</td>
+            </tr>
+            <tr>
+                <td>BaseAmount</td>
+                <td>Money</td>
+                <td>The base amount of the registration. Only included if IncludePaymentDetails=1.</td>
+            </tr>
+            <tr>
+                <td>DiscountAmount</td>
+                <td>Money</td>
+                <td>The discount amount applied to the registration. Only included if IncludePaymentDetails=1.</td>
+            </tr>
+            <tr>
+                <td>DiscountPercent</td>
+                <td>Integer</td>
+                <td>Percentage discount applied to the registration. Only included if IncludePaymentDetails=1.</td>
+            </tr>
+            <tr>
+                <td>ChargeAmount</td>
+                <td>Money</td>
+                <td>The total net amount of the registration. Only included if IncludePaymentDetails=1.</td>
+            </tr>
+            <tr>
+                <td>RefundAmount</td>
+                <td>Money</td>
+                <td>Amount refunded against this registration. Only included if IncludePaymentDetails=1.</td>
+            </tr>
+            <tr>
+                <td>PaymentType</td>
+                <td>Integer</td>
+                <td>
+                    <p class="articleContent">
+                        Type of payment used, where:<br />
+                        0 – Free<br />
+                        1 – Credit Card<br />
+                        2 – Check<br />
+                        4 – PO/Invoice<br />
+                        Only included if IncludePaymentDetails=1..
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>AmountPaidToDate</td>
+                <td>Money</td>
+                <td>Amount paid for this registration. Only included if IncludePaymentDetails=1.</td>
+            </tr>
+            <tr>
+                <td>DiscountDesc</td>
+                <td>String</td>
+                <td>Description of the discount used for this registration. Only included if IncludePaymentDetails=1.</td>
+            </tr>
+            <tr>
+                <td>DiscountCode</td>
+                <td>String</td>
+                <td>Code of the discount used for this registration. Only included if IncludePaymentDetails=1.</td>
+            </tr>
+            <tr>
+                <td>DiscountMethod</td>
+                <td>Integer.</td>
+                <td>
+                    <p class="articleContent">
+                        Method of discount, where:<br />
+                        0 – Percentage<br />
+                        1 – Flat amount<br />
+                        Only included if IncludePaymentDetails=1.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>Phone1</td>
+                <td>String</td>
+                <td>Profile phone 1. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>Phone2</td>
+                <td>String</td>
+                <td>Profile phone 2. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>LoginID</td>
+                <td>String</td>
+                <td>Login ID for this user. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>TimeZoneInfoKey</td>
+                <td>Integer</td>
+                <td>Time Zone for this user. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>Active</td>
+                <td>Flag (0/1)</td>
+                <td>Flag indicating whether this user is active. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>UserType</td>
+                <td>Integer</td>
+                <td>Type of user where 0 = attendee and 1 = exhibitor. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>AttendeeType</td>
+                <td>String</td>
+                <td>Description of type of attendee, if UserType = 0. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>Exhibitor</td>
+                <td>String</td>
+                <td>Name of the exhibitor that this user is associated with, if UserType = 1. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>ExhibitorUserType</td>
+                <td>String</td>
+                <td>Description of type of exhibitor user, if UserType = 1. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>String</td>
+                <td>Address for this user. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>City</td>
+                <td>String</td>
+                <td>The city for this user. Only included if ProfileLevel=F.3</td>
+            </tr>
+            <tr>
+                <td>StateProv</td>
+                <td>String</td>
+                <td>State/Province for this user. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>Country</td>
+                <td>String</td>
+                <td>Country for this user. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>PostalCode</td>
+                <td>String</td>
+                <td>Postal (ZIP) code for this user. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>JobTitle</td>
+                <td>String</td>
+                <td>Job title of this user. Only included if ProfileLevel=F.</td>
+            </tr>
+            <tr>
+                <td>LocaleID</td>
+                <td>Integer</td>
+                <td>Locale ID for this user. Only included if ProfileLevel=F.</td>
+            </tr>
+        </tbody>
+    </table>
+</article>

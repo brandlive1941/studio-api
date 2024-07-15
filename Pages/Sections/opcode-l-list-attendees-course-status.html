@@ -1,0 +1,124 @@
+<article>
+    <h1>OpCode L: List Attendee's Course Status</h1>
+    <h2>OpCode L: List Attendee's Course Status</h2>
+    <p class="articleContent">This opcode is used to list the attendee’s course status from the VTS system.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request. This HTTPS request may be a GET or POST operation. Each request must supply the authentication credentials assigned to the caller by Notified. Only requests with valid credentials will be processed. These credentials identify the caller and provide access only to a specific customer area.</p>
+    <p class="articleContent">The format of the call is:https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50800&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCode={Opcode&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50800. All other parameters may appear in any sequence.</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>API Parameter</th>
+                <th>Type/Size</th>
+                <th>Req.</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>APIUserAuthCode</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API authorization code as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>APIUserCredentials</td>
+                <td>Varchar 80</td>
+                <td>Y</td>
+                <td>Your API user credentials as supplied by Notified.</td>
+            </tr>
+            <tr>
+                <td>OpCode</td>
+                <td>Varchar 20</td>
+                <td>Y</td>
+                <td>Should be L to invoke this function.</td>
+            </tr>
+            <tr>
+                <td>Completed</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>Pass one (1) for only completed courses, 0 (zero) for all courses. Defaults to 0 (zero).</td>
+            </tr>
+            <tr>
+                <td>JSON</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>Pass one (1) for JSON formatted output. Defaults to 1 (one).</td>
+            </tr>
+            <tr>
+                <td>CSV</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>Pass one (1) for CSV formatted output. Defaults to 0 (zero). Overrides JSON.</td>
+            </tr>
+            <tr>
+                <td>XML</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>Pass one (1) for XML formatted output. Defaults to 0 (zero). Overrides JSON and CSV.</td>
+            </tr>
+            <tr>
+                <td>StartDate</td>
+                <td>Date</td>
+                <td>N</td>
+                <td>Date to filter course completion by.</td>
+            </tr>
+            <tr>
+                <td>EndDate</td>
+                <td>Date</td>
+                <td>N</td>
+                <td>Date to filter course completion by.</td>
+            </tr>
+            <tr>
+                <td>ShowKey</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>Filter courses by Show Key.</td>
+            </tr>
+            <tr>
+                <td>EventKey</td>
+                <td>Integer</td>
+                <td>N</td>
+                <td>Filter courses by Event Key.</td>
+            </tr>
+        </tbody>
+    </table><p class="articleContent"> </p>
+    <h2>Return Outputs</h2>
+    <p class="articleContent">This API returns the VTS Attendee’s course completion Status.</p>
+    <h2>CSV/Text</h2>
+    <pre><code>
+    ShowUserKey  Name  EmailAddress CompanyName  CourseKey   CourseTitle  Complete    Detail      Complete Test - must pass Duration - 1 minutes required  Specific Poll - Polling question(2)  Checkpoints - 10% required     Polls - 10% required
+    1416937     Andrew Jackson     ANDREW.JACKSON@WHITEHOUSE.GOV        5342  content     0      incomplete  100%  0:00:20
+    1416937     Andrew Jackson     ANDREW.JACKSON@WHITEHOUSE.GOV        5751  Webcast v001 0      incomplete  100%  0:00:20
+    </code></pre>
+    <h2>XML</h2>
+    <pre><code>
+        &lt;Attendees&gt;
+        &lt;Attendee EMailAddress="ANDREW.JACKSON@WHITEHOUSE.GOV" Name="Andrew Jackson" ShowUserKey="1416937"&gt;
+        &lt;Requirement&gt;
+        &lt;Requirement CourseTitle="content" ShowTitle="Corey VX Event v001" ShowKey="7858" CourseKey="5342" Detail="incomplete"&gt;
+        &lt;Details&gt;
+        &lt;Detail Type="Duration" Object="content" Required="0 minutes required" Complete="0"/&gt;
+        &lt;/Details&gt;
+        &lt;/Requirement&gt;
+        &lt;Requirement CourseTitle="Webcast v001" ShowTitle="Webcast v001" ShowKey="9031" CourseKey="5751" Detail="incomplete"&gt;
+         &lt;Details&gt;
+          &lt;Detail Type="Duration" Object="Webcast v001" Required="1 minutes required" Actual="00:00:20" Complete="0"/&gt;
+          &lt;Detail Type="Polls" Object="Webcast v001" Required="10% required" Complete="0"/&gt;
+          &lt;Detail Type="Specific Poll" Object="Polling question(2)" Complete="0"/&gt;
+          &lt;Detail Type="Complete Test" Object="Test for 9031" Required="must pass" Complete="0"/&gt;
+          &lt;Detail Type="Complete Test" Object="Test for CPE" Required="must pass" Actual="100%" Complete="1"/&gt;
+          &lt;Detail Type="Checkpoints" Object="Webcast v001" Required="10% required" Complete="0"/&gt;
+         &lt;/Details&gt;
+        &lt;/Requirement&gt;
+       &lt;/Requirement&gt;
+      &lt;/Attendee&gt;
+     &lt;/Attendees&gt;
+    </code></pre>
+    <h2>JSON</h2>
+    <pre><code>
+    {"Status": 0,"Diag": "OK","ResultSet": [[{"ShowUserKey": 1416937,"Name": "Andrew Jackson","EmailAddress": "ANDREW.JACKSON@WHITEHOUSE.GOV","CompanyName": "","CourseKey": 5342,"CourseTitle": "content","Complete": 0,"Detail": "incomplete","Complete Test - must pass": "100%","Duration - 1 minutes required": "00:00:20","Specific Poll - Polling question(2)": "","Checkpoints - 10% required": "","Polls - 10% required": ""}, {"ShowUserKey": 1416937,"Name": "Andrew Jackson","EmailAddress": "ANDREW.JACKSON@WHITEHOUSE.GOV","CompanyName": "","CourseKey": 5751,"CourseTitle": "Webcast v001","Complete": 0,"Detail": "incomplete","Complete Test - must pass": "100%","Duration - 1 minutes required": "00:00:20","Specific Poll - Polling question(2)": "","Checkpoints - 10% required": "","Polls - 10% required": ""}]]}
+    </code></pre>
+</article>

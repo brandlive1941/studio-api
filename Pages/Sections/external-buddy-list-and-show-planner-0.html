@@ -1,0 +1,92 @@
+<article>
+    <h1>External Buddy List and Show Planner</h1>
+    <h2>External Buddy List and Show Planner</h2>
+    <p class="articleContent">Notified provides a portal to virtual event integration feature that enables partners and Show hosts to programmatically interact with the Buddy List and Show Planner features of the Virtual Trade Show (VTS) platform on-demand from their controlled sites and systems. </p>
+    <p class="articleContent">The NotifiedVirtual Trade Show External API also provides third-party partners the ability to programmatically automate the creation and synchronization of shared data entities and attributes between their systems and the VTS database.  This automation is controlled and orchestrated by the caller.  The VTS platform does not currently push calls to third-party systems.</p>
+    <h2>Calling the API</h2>
+    <p class="articleContent">The API is called via a secure HTTPS request.  This HTTPS request may be a GET or POST operation.  Each request must supply the authentication credentials assigned to the caller by Notified.  Only requests with valid credentials will be processed.  These credentials identify the caller and provide access only to a specific customer area. </p>
+    <ul>
+        <li>Buddy List API:</li>
+    </ul><p class="articleContent">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50520&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;LookupByExternalUserID={0(default)|1}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <ul>
+        <li>Show Planner API:</li>
+    </ul><p class="articleContent">https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50530&amp;APIUserAuthCode={YourAuthCode}&amp;APIUserCredentials={YourCredentials}&amp;OpCodeList={Opcode[OpCode[…]]}&amp;OutputFormat={X|H|T(default)}&amp;LookupByExternalUserID={0(default)|1}&amp;{Additional, opcode-specific parameters in name=value format…}</p>
+    <p class="articleContent"><strong>Note: </strong>The format of the APAC Data Center is: https://api.apac.onlinexperiences.com.</p>
+    <p class="articleContent">Specific parameter ordering is unimportant, with the only restriction being that the first parameter MUST BE LASCmd=AI:4;F:APIUTILS!50520 for the Buddy List API and LASCmd=AI:4;F:APIUTILS!50530 for the Show Planner API. All other parameters may appear in any sequence. </p>
+    <h2>OpCodes</h2>
+    <p class="articleContent">API operations to be performed are specified in the OpCode parameter.  More than one opcode may be specified, allowing the caller to perform multiple steps for each person.  Opcodes are evaluated in order from left to right.  Each opcode requires a different set of parameters to be supplied.  Parameter values may be shared among multiple opcodes.  Following is a list of valid opcodes supported by the API:</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>OpCode</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>A</td>
+                <td>Add a new buddy or show planner item.</td>
+            </tr>
+            <tr>
+                <td>D</td>
+                <td>Delete a person from the Buddy List or item from the Show Planner.</td>
+            </tr>
+            <tr>
+                <td>L</td>
+                <td>Lists the contents of the Buddy List or Show Planner.</td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="articleContent">The specific parameters accepted and return output for each opcode are documented individually, including potential errors that may occur specific to each opcode.</p>
+    <h2>Example API Call</h2>
+    <p class="articleContent">The following example call retrieves the buddy list for the person with an external id of 99347:</p>
+    <p class="articleContent">
+        https://api.onlinexperiences.com/scripts/Server.nxp?LASCmd=AI:4;F:APIUTILS!50520&amp;APIUserAuthCode=JX11452B&amp;APIUserCredentials=DEMO01&amp;OpCodeList=L&amp;OutputFormat=X&amp;LookupByExternalID=1&amp;ExternalID=99347&amp;ShowKey=1007
+    </p>
+    <p class="articleContent">
+        Before the API begins processing opcodes, certain credential and parameter validations are made.  If any of these top-level validations fail, none of the opcodes will be processed.  Below is a listing of potential top-level validation errors:
+    </p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>Error</th>
+                <th>Message</th>
+                <th>Reason</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>50000</td>
+                <td>Invalid API Credentials Supplied!</td>
+                <td>The credentials supplied do not match any authorized API accounts.</td>
+            </tr>
+            <tr>
+                <td>50000</td>
+                <td>API Access Has Been Deactivated!</td>
+                <td>The specified API account is marked inactive.</td>
+            </tr>
+            <tr>
+                <td>50000</td>
+                <td>Invalid Show Key Specified!</td>
+                <td>The ShowKey parameter does not match any valid shows for this account.</td>
+            </tr>
+            <tr>
+                <td>50000</td>
+                <td>Invalid Or Missing OpCode Specified!</td>
+                <td>Either the OpCode parameter is empty or missing.</td>
+            </tr>
+            <tr>
+                <td>50000</td>
+                <td>Empty Or Missing Show Key For OpCodes Specified!</td>
+                <td>One of the opcodes requires a valid ShowKey parameter and ShowKey was not supplied.</td>
+            </tr>
+            <tr>
+                <td>-10</td>
+                <td>Invalid OpCode Specified!</td>
+                <td>The specified OpCode is invalid.</td>
+            </tr>
+        </tbody>
+    </table><h2>Retrieving Results from the API</h2>
+    <p class="articleContent">The API can return results in several formats, allowing the developer to choose what is most easily consumed.  The formats are text-based, HTTP URL-encoded, and XML.  Results contain a header, indicating the overall success of the call, including textual diagnostic, the number of opcodes successfully processed, and the number of opcodes that resulted in an error.  Each opcode then outputs a recap section of its execution, indicating the opcode, processing result, and textual diagnostic.  Error codes of 0 indicate success (no error). </p>
+    <p class="articleContent">In addition to the opcode recap, data elements are output for certain opcodes indicating the return values of the operation.  The format of the results depends on the result format requested.  For URL-encoded, these are listed as a string of HTTP parameter names and values.  They are listed as a header line for text, followed by a values line, each field separated by commas.  For XML, they are listed as child nodes of the opcode response.  Example output is included for each opcode in the respective opcode’s documentation.</p>
+</article>

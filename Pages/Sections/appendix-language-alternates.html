@@ -1,0 +1,104 @@
+<article>
+    <h1>Appendix A: Language Alternates</h1>
+    <h2>Appendix A: Language Alternates</h2>
+    <p class="articleContent">Intrado provides the ability to specify descriptions of items in multiple languages. This is accomplished by using the Language Alternates system. Appropriate language strings are automatically selected by the system when returning data to users based on the user’s LocaleID setting.</p>
+    <p class="articleContent">Multiple field language alternate records can be saved via one parameter. Each record is terminated with the sequence |^|. Fields within each record are delimited with |.|. The record field structure has the following format:</p>
+    <p class="articleContent">FieldLanguageAlternatesKey|.|Source|.|KeyVal|.|FieldNo|.|LocaleID|.|FieldText|.|Action|^|</p>
+    <table border="1" cellpadding="1" cellspacing="1">
+        <thead>
+            <tr>
+                <th>
+                    <p class="articleContent">Field</p>
+                </th>
+                <th>
+                    <p class="articleContent">Type/Size</p>
+                </th>
+                <th>
+                    <p class="articleContent">Comment</p>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <p class="articleContent">FieldLanguageAlternatesKey</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Pass this value as zero (0).</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Source</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Table Source (as identified in the opcode documentation)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">KeyVal</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Object Key. Pass zero (0) for this parameter.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">FieldNo</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Field number that the text applies to (as identified in the opcode documentation)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">LocaleID</p>
+                </td>
+                <td>
+                    <p class="articleContent">Integer</p>
+                </td>
+                <td>
+                    <p class="articleContent">Locale ID indicating the language of this string. (See Locale ID reference in the External User API documentation for a list of values)</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">FieldText</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 2GB</p>
+                </td>
+                <td>
+                    <p class="articleContent">The actual foreign language text.</p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p class="articleContent">Action</p>
+                </td>
+                <td>
+                    <p class="articleContent">Varchar 10</p>
+                </td>
+                <td>
+                    <p class="articleContent">Pass the literal string false for this parameter.</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="articleContent">An example string containing Spanish language alternate values for an event grouping description and abstract would be:</p>
+    <p class="articleContent">0|.|28|.|0|.|1|.|1034|.|Búsqueda|.|false|^|0|.|28|.|0|.|2|.|1034|.|Esto es todo acerca de la búsqueda!|.|false|^|</p>
+    <p class="articleContent">Certain opcodes provide multiple parameters for specific field language alternates. This is only for convenience purposes. Field language sets can be passed in any of the language alternate parameters for any of the fields and can be intermixed.</p>
+</article>
